@@ -171,7 +171,7 @@ class _JoinState extends State<Join> {
                     ),
                   ),
                 ),
-                ElevatedButton(onPressed: () {}, child: Text('주소 찾기'))
+                ElevatedButton(onPressed: () {}, child: Text('주소찾기'))
               ],
             ),
           ),
@@ -199,19 +199,21 @@ class _JoinState extends State<Join> {
                           border: Border.all(
                               color: Color.fromARGB(255, 89, 89, 89)),
                           borderRadius: BorderRadius.circular(5)),
-                      child: DropdownButton(
-                        underline: SizedBox(),
-                        value: phoneSelect,
-                        items: phone.map((String phone) {
-                          return DropdownMenuItem(
-                              value: phone,
-                              child:
-                                  Text(phone, style: TextStyle(fontSize: 20)));
-                        }).toList(),
-                        onChanged: (newvalue) {
-                          phoneSelect = newvalue!;
-                          setState(() {});
-                        },
+                      child: Center(
+                        child: DropdownButton(
+                          underline: SizedBox(),
+                          value: phoneSelect,
+                          items: phone.map((String phone) {
+                            return DropdownMenuItem(
+                                value: phone,
+                                child: Text(phone,
+                                    style: TextStyle(fontSize: 15)));
+                          }).toList(),
+                          onChanged: (newvalue) {
+                            phoneSelect = newvalue!;
+                            setState(() {});
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -253,7 +255,7 @@ class _JoinState extends State<Join> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                   child: SizedBox(
-                    width: 250,
+                    width: 150,
                     height: 50,
                     child: TextField(
                       controller: emailController,
@@ -264,22 +266,36 @@ class _JoinState extends State<Join> {
                     ),
                   ),
                 ),
-                DropdownButton(
-                  value: emailSelect,
-                  items: email.map((String email) {
-                    return DropdownMenuItem(
-                      value: email,
-                      child: Text(
-                        email,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (newvalue) {
-                    emailSelect = newvalue!;
-                    setState(() {});
-                  },
+                Container(
+                  width: 130,
+                  decoration: BoxDecoration(
+                      border:
+                          Border.all(color: Color.fromARGB(255, 89, 89, 89)),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Center(
+                    child: DropdownButton(
+                      underline: SizedBox(),
+                      value: emailSelect,
+                      items: email.map((String email) {
+                        return DropdownMenuItem(
+                          value: email,
+                          child: Text(
+                            email,
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (newvalue) {
+                        emailSelect = newvalue!;
+                        setState(() {});
+                      },
+                    ),
+                  ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: ElevatedButton(onPressed: () {}, child: Text('인증하기')),
+                )
               ],
             ),
           ),
@@ -289,7 +305,7 @@ class _JoinState extends State<Join> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: 200,
+                  width: 280,
                   height: 50,
                   child: TextField(
                     controller: emailCheckController,
@@ -299,7 +315,10 @@ class _JoinState extends State<Join> {
                     ),
                   ),
                 ),
-                ElevatedButton(onPressed: () {}, child: Text('인증 확인'))
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: ElevatedButton(onPressed: () {}, child: Text('인증확인')),
+                )
               ],
             ),
           ),
@@ -323,6 +342,7 @@ class _JoinState extends State<Join> {
         actions: [
           TextButton(
             onPressed: () {
+              Get.back();
               Get.back();
             },
             child: Text('확인'),
