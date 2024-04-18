@@ -1,16 +1,20 @@
+import 'package:chcar_app/view/join_page.dart';
+import 'package:chcar_app/view/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
 
-  late TextEditingController idController = TextEditingController();
-  late TextEditingController pwController = TextEditingController();
+  final TextEditingController idController = TextEditingController();
+  final TextEditingController pwController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.all(50),
@@ -39,7 +43,19 @@ class Login extends StatelessWidget {
                 ),
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: Text('로그인'))
+            ElevatedButton(
+                onPressed: () => Get.to(MainPage()), child: Text('로그인')),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                    onPressed: () => Get.to(Join()), child: Text('회원가입')),
+                Text('|'),
+                TextButton(onPressed: () {}, child: Text('아이디 찾기')),
+                Text('|'),
+                TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
+              ],
+            )
           ],
         ),
       ),
