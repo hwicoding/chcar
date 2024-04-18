@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 class PredictPage extends StatelessWidget {
   const PredictPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-      final TextEditingController pstextEditingController = TextEditingController();
-      final TextEditingController fueltextEditingController = TextEditingController();
-      final TextEditingController kmtextEditingController = TextEditingController();
+    final TextEditingController pstextEditingController =
+        TextEditingController();
+    final TextEditingController fueltextEditingController =
+        TextEditingController();
+    final TextEditingController kmtextEditingController =
+        TextEditingController();
 
-      
-      
-    
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -22,15 +23,15 @@ class PredictPage extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: GestureDetector(
-        onTap: () =>  FocusScope.of(context),
+        onTap: () => FocusScope.of(context),
         child: SingleChildScrollView(
-          child: GetBuilder(
-          
-            builder: (controller) {
-                
-            },
+            // child: GetBuilder(
+
+            //   // builder: (controller) {
+
+            //   // },
+            //   ),
             ),
-        ),
       ),
     );
   }

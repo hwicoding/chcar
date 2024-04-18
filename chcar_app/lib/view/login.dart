@@ -1,3 +1,5 @@
+import 'package:chcar_app/view/findId.dart';
+import 'package:chcar_app/view/findPw.dart';
 import 'package:chcar_app/view/join_page.dart';
 import 'package:chcar_app/view/main_page.dart';
 import 'package:flutter/material.dart';
@@ -51,9 +53,11 @@ class Login extends StatelessWidget {
                 TextButton(
                     onPressed: () => Get.to(Join()), child: Text('회원가입')),
                 Text('|'),
-                TextButton(onPressed: () {}, child: Text('아이디 찾기')),
+                TextButton(
+                    onPressed: () => Get.to(FindId()), child: Text('아이디 찾기')),
                 Text('|'),
-                TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
+                TextButton(
+                    onPressed: () => Get.to(FindPw()), child: Text('비밀번호 찾기')),
               ],
             )
           ],
