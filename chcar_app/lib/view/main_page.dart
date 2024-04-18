@@ -1,4 +1,6 @@
+import 'package:chcar_app/view/predict_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -42,7 +44,9 @@ class MainPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromARGB(255, 79, 139, 116),
-        onPressed: () {},
+        onPressed: () {
+            Get.to(const PredictPage());
+        },
         child: Center(
           child: Icon(
             Icons.add,
