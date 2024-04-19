@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
+import 'package:remedi_kopo/remedi_kopo.dart';
 
 class Join extends StatefulWidget {
   const Join({super.key});
@@ -27,6 +28,8 @@ class _JoinState extends State<Join> {
   String phoneSelect = '010';
   var email = ['naver.com', 'gmail.com', 'daum.net', 'yahoo.com'];
   String emailSelect = 'naver.com';
+  late GlobalKey<FormState> _formKey;
+  Map<String, String> formData = {};
 
   @override
   void initState() {
@@ -43,6 +46,7 @@ class _JoinState extends State<Join> {
     phone2Controller = TextEditingController();
     emailController = TextEditingController();
     emailCheckController = TextEditingController();
+    _formKey = GlobalKey<FormState>();
   }
 
   @override
@@ -148,53 +152,72 @@ class _JoinState extends State<Join> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 130,
-                  height: 50,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                    child: TextField(
-                      controller: address1Controller,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                      readOnly: true,
+          Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          height: 60,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                            child: TextField(
+                              controller: address1Controller,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              readOnly: true,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 300,
+                          height: 60,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                            child: TextField(
+                              maxLines: 20,
+                              controller: address2Controller,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              readOnly: true,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 170,
-                  height: 50,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                    child: TextField(
-                      controller: address2Controller,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                        child: SizedBox(
+                          width: 280,
+                          height: 50,
+                          child: TextField(
+                              controller: address3Controller,
+                              decoration: InputDecoration(
+                                labelText: '상세 주소를 입력하세요',
+                                border: OutlineInputBorder(),
+                              )),
+                        ),
                       ),
-                      readOnly: true,
-                    ),
+                      ElevatedButton(
+                          onPressed: () {
+                            _searchAddress(context);
+                          },
+                          child: Text('주소찾기'))
+                    ],
                   ),
-                ),
-                ElevatedButton(onPressed: () {}, child: Text('주소찾기'))
-              ],
-            ),
-          ),
-          SizedBox(
-            width: 400,
-            height: 50,
-            child: TextField(
-                controller: address3Controller,
-                decoration: InputDecoration(
-                  labelText: '상세 주소를 입력하세요',
-                  border: OutlineInputBorder(),
-                )),
-          ),
+                ],
+              )),
           Padding(
             padding: const EdgeInsets.all(10),
             child: Row(
@@ -391,5 +414,29 @@ class _JoinState extends State<Join> {
     var dataConvertedJson = json.decode(utf8.decode(response.bodyBytes));
     var result = dataConvertedJson['result'];
     print(result);
+  }
+
+  _searchAddress(BuildContext context) async {
+    KopoModel? model = await Get.to(RemediKopo());
+
+    if (model != null) {
+      final postcode = model.zonecode ?? '';
+      address1Controller.value = TextEditingValue(
+        text: postcode,
+      );
+      formData['postcode'] = postcode;
+
+      final address = model.address ?? '';
+      address2Controller.value = TextEditingValue(
+        text: address,
+      );
+      formData['address'] = address;
+
+      final buildingName = model.buildingName ?? '';
+      address3Controller.value = TextEditingValue(
+        text: buildingName,
+      );
+      formData['address_detail'] = buildingName;
+    }
   }
 }
