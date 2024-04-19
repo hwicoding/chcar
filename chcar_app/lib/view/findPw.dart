@@ -14,6 +14,9 @@ class FindPw extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 79, 139, 116),
         iconTheme: IconThemeData(color: Colors.white),
       ),
+      body: Center(
+        child: Column(),
+      ),
     );
   }
 }

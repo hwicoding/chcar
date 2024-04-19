@@ -198,6 +198,7 @@ class FindId extends StatelessWidget {
                     ],
                   ),
                 ),
+                ElevatedButton(onPressed: () {}, child: Text('아이디 찾기'))
               ],
             );
           },
