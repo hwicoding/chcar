@@ -367,9 +367,11 @@ class _JoinState extends State<Join> {
     String pw = pwController.text;
     String name = nameController.text;
     String nickname = nicknameController.text;
-    String address = address1Controller.text;
+    String address = address1Controller.text +
+        address2Controller.text +
+        address3Controller.text;
     String phone = phoneSelect + phone1Controller.text + phone2Controller.text;
-    String email = emailCheckController.text + emailSelect;
+    String email = emailController.text + '@' + emailSelect;
 
     // HTTP POST 요청을 보내기 위해 http.post를 사용합니다.
     var url = Uri.parse('http://localhost:8080/Chcar/InsertUser.jsp');
