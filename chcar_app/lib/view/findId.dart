@@ -71,7 +71,7 @@ class FindId extends StatelessWidget {
                             child: Center(
                               child: DropdownButton(
                                 underline: SizedBox(),
-                                value: controller.phoneSelecet,
+                                value: controller.phoneSelect,
                                 items: phone.map((String phone) {
                                   return DropdownMenuItem(
                                     value: phone,
@@ -148,7 +148,7 @@ class FindId extends StatelessWidget {
                         child: Center(
                           child: DropdownButton(
                             underline: SizedBox(),
-                            value: controller.emailSelecet,
+                            value: controller.emailSelect,
                             items: email.map((String email) {
                               return DropdownMenuItem(
                                 value: email,

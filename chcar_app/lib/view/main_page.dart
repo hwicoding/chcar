@@ -16,6 +16,7 @@ class MainPage extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 79, 139, 116),
         iconTheme: IconThemeData(color: Colors.white),
       ),
+      body: ElevatedButton(onPressed: () {}, child: Text('이동')),
       drawer: Drawer(
         child: ListView(
           children: [
@@ -45,7 +46,7 @@ class MainPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromARGB(255, 79, 139, 116),
         onPressed: () {
-            Get.to(const PredictPage());
+          Get.to(const PredictPage());
         },
         child: Center(
           child: Icon(

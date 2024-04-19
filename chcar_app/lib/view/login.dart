@@ -2,8 +2,10 @@ import 'package:chcar_app/view/findId.dart';
 import 'package:chcar_app/view/findPw.dart';
 import 'package:chcar_app/view/join_page.dart';
 import 'package:chcar_app/view/main_page.dart';
+import 'package:chcar_app/vm/findPw_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -57,7 +59,9 @@ class Login extends StatelessWidget {
                     onPressed: () => Get.to(FindId()), child: Text('아이디 찾기')),
                 Text('|'),
                 TextButton(
-                    onPressed: () => Get.to(FindPw()), child: Text('비밀번호 찾기')),
+                    onPressed: () => Get.to(ChangeNotifierProvider(
+                        create: (context) => FindPwVm(), child: FindPw())),
+                    child: Text('비밀번호 찾기')),
               ],
             )
           ],
