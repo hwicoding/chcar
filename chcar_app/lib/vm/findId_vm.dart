@@ -1,18 +1,18 @@
 import 'package:get/get.dart';
 
 class FindIdVm extends GetxController {
-  String phoneSelecet = '010';
+  String phoneSelect = '010';
   String phonenewvalue = '';
-  String emailSelecet = 'naver.com';
+  String emailSelect = 'naver.com';
   String emailnewvalue = '';
 
   changePhone() {
-    phoneSelecet = phonenewvalue;
+    phoneSelect = phonenewvalue;
     update();
   }
 
   changeEmail() {
-    emailSelecet = emailnewvalue;
+    emailSelect = emailnewvalue;
     update();
   }
 }
