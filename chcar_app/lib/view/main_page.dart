@@ -2,6 +2,8 @@ import 'package:chcar_app/view/predict_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
+import 'detail_page.dart';
+
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
@@ -16,7 +18,11 @@ class MainPage extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 79, 139, 116),
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: ElevatedButton(onPressed: () {}, child: Text('이동')),
+      body: ElevatedButton(
+          onPressed: () {
+            Get.to(const DetailPage());
+          },
+          child: Text('이동')),
       drawer: Drawer(
         child: ListView(
           children: [
