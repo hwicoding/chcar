@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:http/http.dart' as http;
 
 class Join extends StatefulWidget {
   const Join({super.key});
@@ -14,7 +16,9 @@ class _JoinState extends State<Join> {
   late TextEditingController pwCheckController;
   late TextEditingController nameController;
   late TextEditingController nicknameController;
-  late TextEditingController addressController;
+  late TextEditingController address1Controller;
+  late TextEditingController address2Controller;
+  late TextEditingController address3Controller;
   late TextEditingController phone1Controller;
   late TextEditingController phone2Controller;
   late TextEditingController emailController;
@@ -32,7 +36,9 @@ class _JoinState extends State<Join> {
     pwCheckController = TextEditingController();
     nameController = TextEditingController();
     nicknameController = TextEditingController();
-    addressController = TextEditingController();
+    address1Controller = TextEditingController();
+    address2Controller = TextEditingController();
+    address3Controller = TextEditingController();
     phone1Controller = TextEditingController();
     phone2Controller = TextEditingController();
     emailController = TextEditingController();
@@ -153,9 +159,11 @@ class _JoinState extends State<Join> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                     child: TextField(
+                      controller: address1Controller,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                       ),
+                      readOnly: true,
                     ),
                   ),
                 ),
@@ -165,9 +173,11 @@ class _JoinState extends State<Join> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                     child: TextField(
+                      controller: address2Controller,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                       ),
+                      readOnly: true,
                     ),
                   ),
                 ),
@@ -179,10 +189,11 @@ class _JoinState extends State<Join> {
             width: 400,
             height: 50,
             child: TextField(
+                controller: address3Controller,
                 decoration: InputDecoration(
-              labelText: '상세 주소를 입력하세요',
-              border: OutlineInputBorder(),
-            )),
+                  labelText: '상세 주소를 입력하세요',
+                  border: OutlineInputBorder(),
+                )),
           ),
           Padding(
             padding: const EdgeInsets.all(10),
@@ -326,6 +337,7 @@ class _JoinState extends State<Join> {
             padding: const EdgeInsets.all(10),
             child: ElevatedButton(
                 onPressed: () {
+                  insertUserInfo();
                   joinComplete();
                 },
                 child: Text('회원가입')),
@@ -348,5 +360,34 @@ class _JoinState extends State<Join> {
             child: Text('확인'),
           )
         ]);
+  }
+
+  insertUserInfo() async {
+    String id = idController.text;
+    String pw = pwController.text;
+    String name = nameController.text;
+    String nickname = nicknameController.text;
+    String address = address1Controller.text;
+    String phone = phoneSelect + phone1Controller.text + phone2Controller.text;
+    String email = emailCheckController.text + emailSelect;
+
+    // HTTP POST 요청을 보내기 위해 http.post를 사용합니다.
+    var url = Uri.parse('http://localhost:8080/Chcar/InsertUser.jsp');
+    var response = await http.post(
+      url,
+      body: {
+        'id': id,
+        'pw': pw,
+        'name': name,
+        'nickname': nickname,
+        'address': address,
+        'phone': phone,
+        'email': email,
+      },
+    );
+    // 서버로부터 받은 응답을 JSON으로 디코딩합니다.
+    var dataConvertedJson = json.decode(utf8.decode(response.bodyBytes));
+    var result = dataConvertedJson['result'];
+    print(result);
   }
 }
