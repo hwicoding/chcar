@@ -1,3 +1,4 @@
+import 'package:chcar_app/view/mypage.dart';
 import 'package:chcar_app/view/predict_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -26,9 +27,20 @@ class MainPage extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           children: [
+            UserAccountsDrawerHeader(
+              accountName: Text('OOO님 안녕하세요'),
+              accountEmail: Text(''),
+            ),
             ListTile(
               leading: Icon(Icons.home),
               title: Text('Home'),
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text('Mypage'),
+              onTap: () {
+                Get.to(Mypage());
+              },
             ),
             ListTile(
               leading: Icon(Icons.home),
