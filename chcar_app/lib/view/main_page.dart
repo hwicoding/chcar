@@ -45,7 +45,7 @@ class MainPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromARGB(255, 79, 139, 116),
         onPressed: () {
-            Get.to(const PredictPage());
+          Get.to(const PredictPage());
         },
         child: Center(
           child: Icon(
