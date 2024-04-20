@@ -21,7 +21,7 @@ class MainPage extends StatelessWidget {
       ),
       body: ElevatedButton(
           onPressed: () {
-            Get.to(const DetailPage());
+            Get.to(DetailPage());
           },
           child: Text('이동')),
       drawer: Drawer(
