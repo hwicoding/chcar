@@ -16,7 +16,6 @@ class FindId extends StatelessWidget {
   final TextEditingController phone1Controller = TextEditingController();
   final TextEditingController phone2Controller = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController emailCheckController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +125,7 @@ class FindId extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                         child: SizedBox(
-                          width: 150,
+                          width: 200,
                           height: 50,
                           child: TextField(
                             controller: emailController,
@@ -138,7 +137,7 @@ class FindId extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        width: 130,
+                        width: 180,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Color.fromARGB(255, 89, 89, 89),
@@ -164,41 +163,14 @@ class FindId extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text('인증하기'),
-                        ),
-                      ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 280,
-                        height: 50,
-                        child: TextField(
-                          controller: emailCheckController,
-                          decoration: InputDecoration(
-                            labelText: '이메일 인증번호를 입력하세요',
-                            border: OutlineInputBorder(),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                        child: ElevatedButton(
-                            onPressed: () {}, child: Text('인증확인')),
-                      )
-                    ],
-                  ),
-                ),
-                ElevatedButton(onPressed: () {}, child: Text('아이디 찾기'))
+                ElevatedButton(
+                    onPressed: () {
+                      userCheck(controller);
+                    },
+                    child: Text('아이디 찾기'))
               ],
             );
           },
@@ -215,5 +187,13 @@ class FindId extends StatelessWidget {
   changeEmail(FindIdVm controller, newvalue) {
     controller.emailnewvalue = newvalue;
     controller.changeEmail();
+  }
+
+  userCheck(FindIdVm controller) {
+    controller.name = nameController.text;
+    controller.phone =
+        controller.phoneSelect + phone1Controller.text + phone2Controller.text;
+    controller.email = emailController.text + '@' + controller.emailSelect;
+    controller.findUserId();
   }
 }
