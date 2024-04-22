@@ -29,7 +29,7 @@ class _DetailPageImageSliderState extends State<DetailPageImageSlider> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 3), (_) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       widget.onNext();
     });
   }

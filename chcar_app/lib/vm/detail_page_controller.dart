@@ -9,33 +9,35 @@ import '../model/write.dart';
 import 'package:http/http.dart' as http;
 
 class DetailController extends GetxController {
+  // RxList - GetX에서 제공해주는 반응형 리스트.(실시간 UI 업데이트 기능)
   final RxList<Write> writeList = <Write>[].obs;
   late Timer _timer;
+  late String carSeq = '1';
   RxInt _currentIndex = RxInt(0);
   List data = [];
 
   @override
   void onInit() {
     super.onInit();
-    fetchWrites();
+    fetchWrites(carSeq);
+    getJSONData();
   }
 
   getJSONData() async {
-    var url =
-        Uri.parse('http://localhost:8080/Flutter/team_car_JSP/selectCar.jsp');
-
-    print('이건 URL이야 : $url');
+    print('이건 카시퀀스야 : $carSeq');
+    var url = Uri.parse(
+        'http://localhost:8080/Flutter/team_car_JSP/selectCar.jsp?carSeq=$carSeq');
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
     List result = dataConvertedJSON['results'];
-    print(result);
     data.addAll(result);
     update();
   }
 
-  void fetchWrites() async {
+  void fetchWrites(String carSeq) async {
     final snapshot = await FirebaseFirestore.instance
         .collection('write')
+        .where('carseq', isEqualTo: carSeq) // 매개변수로 받은 carseq 값으로 필터링합니다.
         .orderBy('seq', descending: false)
         .get();
     final writes = snapshot.docs.map((doc) {

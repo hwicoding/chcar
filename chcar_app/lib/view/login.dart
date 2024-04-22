@@ -39,6 +39,7 @@ class Login extends StatelessWidget {
                   labelText: '아이디를 입력하세요',
                   border: OutlineInputBorder(),
                 ),
+                keyboardType: TextInputType.text,
               ),
             ),
             Padding(
@@ -49,6 +50,8 @@ class Login extends StatelessWidget {
                   labelText: '비밀번호를 입력하세요',
                   border: OutlineInputBorder(),
                 ),
+                keyboardType: TextInputType.text,
+                obscureText: true,
               ),
             ),
             ElevatedButton(
@@ -78,7 +81,7 @@ class Login extends StatelessWidget {
   }
 
   blankCheck() {
-    if (idController.text.isEmpty && pwController.text.isEmpty) {
+    if (idController.text.isEmpty || pwController.text.isEmpty) {
       Get.snackbar('로그인 오류.', '아이디 또는 비밀번호를 입력하세요',
           backgroundColor: Colors.red,
           colorText: Colors.white,
@@ -106,9 +109,22 @@ class Login extends StatelessWidget {
     var result = dataConvertedJson['result'];
 
     if (result == '1') {
+      // HTTP POST 요청을 보내기 위해 http.post를 사용합니다.
+      var url = Uri.parse('http://localhost:8080/Chcar/readNickname.jsp');
+      var response = await http.post(
+        url,
+        body: {
+          'id': id,
+        },
+      );
+      // 서버로부터 받은 응답을 JSON으로 디코딩합니다.
+      var dataConvertedJson = json.decode(utf8.decode(response.bodyBytes));
+      var nicknameresult = dataConvertedJson['result'];
+
       // GetStorage에 저장
       login.write('userid', id);
-      Get.to(const MainPage());
+      login.write('usernickname', nicknameresult);
+      Get.to(MainPage());
     } else {
       Get.snackbar('로그인 오류.', '아이디 또는 비밀번호를 확인하세요',
           backgroundColor: Colors.red,
