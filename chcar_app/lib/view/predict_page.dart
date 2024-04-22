@@ -14,16 +14,25 @@ class PredictPage extends StatefulWidget {
 }
 
 class _PredictPageState extends State<PredictPage> {
+  //년도
+  DateTime? pickertime;
   // 텍스트 필드
+  late TextEditingController yearEditingController;
   late TextEditingController pstextEditingController;
   late TextEditingController fueltextEditingController;
   late TextEditingController kmtextEditingController;
+  // 브랜드 파라미터 전할 변수값
+  late String whatb;
   // 라디오버튼 밸류 값 변수
   late List<String> trantype;
   late List<String> fueltype;
   // 드롭다운 초기값
   late String dropvalue1;
   late String dropvalue2;
+  // 색상 드롭다운 버튼 리스트
+  late List<String> col;
+  // 색상 초기값
+  late String initcol;
   // 라디오버튼 값
   late String _selectedOption1;
   late String _selectedOption2;
@@ -31,41 +40,47 @@ class _PredictPageState extends State<PredictPage> {
   // json 값 저장변수
   late List<String> carbrand = [];
   late List<String> carmodel = [];
+
   // 인스턴스 생성
   late DropdownBrandList dropdownBrandList = DropdownBrandList();
 
   @override
   void initState() {
     super.initState();
+
     pstextEditingController = TextEditingController();
     fueltextEditingController = TextEditingController();
     kmtextEditingController = TextEditingController();
+    yearEditingController = TextEditingController();
     trantype = ["오토", "메뉴얼"];
     fueltype = ["디젤", "가솔린"];
     dropvalue1 = 'Audi';
     dropvalue2 = 'Audi_A3';
+    initcol = 'black';
     _selectedOption1 = '';
     _selectedOption2 = '';
+    col = ['black', 'silver', 'grey', 'blue', 'white', 'red'];
     // 페이지 진입시 DB에서 차량 정보 가져오기
     goconnected();
     goconnected2();
-
   }
 
   Future<void> goconnected() async {
     await dropdownBrandList.getbrand();
     carbrand = dropdownBrandList.carbrand;
+    dropdownBrandList.whatB = dropvalue1;
     print(carbrand);
     setState(() {});
   }
 
-Future<void> goconnected2() async {
+  Future<void> goconnected2() async {
+    carmodel.clear();
     await dropdownBrandList.getmodel();
     carmodel = dropdownBrandList.carmodel;
     print(carmodel);
-    //print(carmodel[1]);
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,16 +129,18 @@ Future<void> goconnected2() async {
                               );
                             }).toList(),
                             value: dropvalue1,
-                            onChanged: (value) {
+                            onChanged: (value)  async{
+                              dropdownBrandList.carbrand = [];
+                              dropdownBrandList.carmodel = [];
+                              dropvalue1 = value.toString();
+                              //await dropdownBrandList.whatB = value!;
                               goconnected2();
-                                dropvalue1 = value.toString();
-                                dropdownBrandList.whatB = value!;
-                                dropvalue2 = carmodel[1];
-                              setState(() {});
+                              dropvalue2 = carmodel[1];
+                              setState((){});
                             },
                           ),
                         ),
-                          const SizedBox(
+                        const SizedBox(
                           width: 300,
                           child: Row(
                             children: [
@@ -141,7 +158,7 @@ Future<void> goconnected2() async {
                             ],
                           ),
                         ),
-                      SizedBox(
+                        SizedBox(
                           width: 100,
                           child: DropdownButton(
                             items: carmodel.map((String model) {
@@ -152,8 +169,42 @@ Future<void> goconnected2() async {
                             }).toList(),
                             value: dropvalue2,
                             onChanged: (value) {
-                                dropvalue2 = value.toString();
-                                
+                              dropdownBrandList.carmodel = [];
+                              dropvalue2 = value.toString();
+                              setState(() {});
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 300,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.check,
+                                color: Colors.green,
+                                size: 15,
+                              ),
+                              Text(
+                                '색상 선택',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: 100,
+                          child: DropdownButton(
+                            items: col.map((String model) {
+                              return DropdownMenuItem(
+                                value: model,
+                                child: Text(model),
+                              );
+                            }).toList(),
+                            value: initcol,
+                            onChanged: (value) {
+                              initcol = value.toString();
                               setState(() {});
                             },
                           ),
@@ -199,6 +250,7 @@ Future<void> goconnected2() async {
                                 groupValue: _selectedOption1,
                                 onChanged: (value) {
                                   _selectedOption1 = value!;
+                                  print(_selectedOption1);
                                   setState(() {});
                                 },
                               ),
@@ -261,6 +313,35 @@ Future<void> goconnected2() async {
                                 color: Colors.green,
                                 size: 15,
                               ),
+                              Text('차량 구매 연도'),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 300,
+                            height: 50,
+                            child: TextField(
+                              controller: yearEditingController,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder()),
+                              keyboardType: TextInputType.number,
+                              maxLength: 4,
+                            ),
+                          ),
+                        ),
+                        
+    
+                        const SizedBox(
+                          width: 300,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.check,
+                                color: Colors.green,
+                                size: 15,
+                              ),
                               Text('차량 마력'),
                             ],
                           ),
@@ -269,12 +350,13 @@ Future<void> goconnected2() async {
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
                             width: 300,
-                            height: 30,
+                            height: 50,
                             child: TextField(
                               controller: pstextEditingController,
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder()),
                               keyboardType: TextInputType.number,
+                              maxLength: 5,
                             ),
                           ),
                         ),
@@ -298,12 +380,13 @@ Future<void> goconnected2() async {
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
                             width: 300,
-                            height: 30,
+                            height: 50,
                             child: TextField(
                               controller: fueltextEditingController,
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder()),
                               keyboardType: TextInputType.number,
+                              maxLength: 5,
                             ),
                           ),
                         ),
@@ -327,12 +410,13 @@ Future<void> goconnected2() async {
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
                             width: 300,
-                            height: 30,
+                            height: 50,
                             child: TextField(
                               controller: kmtextEditingController,
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder()),
                               keyboardType: TextInputType.number,
+                              maxLength: 10,
                             ),
                           ),
                         ),
@@ -340,7 +424,16 @@ Future<void> goconnected2() async {
                           padding: const EdgeInsets.all(15.0),
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.to(ResultPage());
+                              if (pstextEditingController.text.isEmpty ||
+                                  fueltextEditingController.text.isEmpty ||
+                                  kmtextEditingController.text.isEmpty ||
+                                  yearEditingController.text.isEmpty) {
+                                dropdownBrandList.showdia();
+                              } else {
+                              Get.to(dropdownBrandList.check(),arguments: [
+                                  whatb,
+                              ]);  
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:

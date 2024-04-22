@@ -1,4 +1,6 @@
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -6,6 +8,7 @@ import 'package:http/http.dart' as http;
   List<String> carbrand = []; 
   List<String> carmodel = []; 
   String whatB = 'Audi';
+  List col = [];
 
   Future<void> getbrand() async {
     var url = Uri.parse('http://localhost:8080/Flutter/JSP/selectbrand.jsp');
@@ -31,5 +34,31 @@ import 'package:http/http.dart' as http;
         }
     }
     update(); 
+  }
+
+  whatcolor(String car) {
+      if (car == 'Kia_Sportage') {
+          col = ['black', 'silver', 'grey', 'white'];
+      }if (car == 'BMW_118' || car == 'BMW_320') {
+          col = ['black', 'silver', 'grey', 'blue', 'white'];
+      }else {
+          col == ['black','silver','grey','blue','white','red'];
+      }
+      update();
+  }
+
+  check() {
+          
+  }
+
+  showdia() {
+     Get.defaultDialog(
+        title: '오류',
+        middleText: '항목을 전부 입력해주세요.',
+        backgroundColor: const Color.fromARGB(255, 79, 139, 116),
+        barrierDismissible: true,
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: const Text('Exit')),
+        ]);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
-   ResultPage({super.key});
+    ResultPage({super.key});
 
   final TextEditingController textEditingController = TextEditingController();
   
@@ -9,7 +9,7 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
-             title: Image.asset(
+            title: Image.asset(
           'images/logo.png',
           width: 150,
         ),
