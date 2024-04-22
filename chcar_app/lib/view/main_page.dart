@@ -2,11 +2,13 @@ import 'package:chcar_app/view/mypage.dart';
 import 'package:chcar_app/view/predict_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'detail_page.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  MainPage({super.key});
+  final login = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class MainPage extends StatelessWidget {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text('OOO님 안녕하세요'),
+              accountName: Text('${login.read('usernickname')}님 안녕하세요'),
               accountEmail: Text(''),
             ),
             ListTile(
