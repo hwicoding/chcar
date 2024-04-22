@@ -12,8 +12,8 @@ class FindPw extends StatelessWidget {
     String phoneSelect = findpw.phoneSelect;
     String emailSelect = findpw.emailSelect;
 
-    final List<String> phone = ['010', '011'];
-    final List<String> email = [
+    final List<String> phonelist = ['010', '011'];
+    final List<String> emaillist = [
       'naver.com',
       'gmail.com',
       'daum.net',
@@ -24,7 +24,6 @@ class FindPw extends StatelessWidget {
     final TextEditingController phone1Controller = TextEditingController();
     final TextEditingController phone2Controller = TextEditingController();
     final TextEditingController emailController = TextEditingController();
-    final TextEditingController emailCheckController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -90,7 +89,7 @@ class FindPw extends StatelessWidget {
                           child: DropdownButton(
                             underline: SizedBox(),
                             value: phoneSelect,
-                            items: phone.map((String phone) {
+                            items: phonelist.map((String phone) {
                               return DropdownMenuItem(
                                 value: phone,
                                 child: Text(
@@ -144,7 +143,7 @@ class FindPw extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                     child: SizedBox(
-                      width: 150,
+                      width: 200,
                       height: 50,
                       child: TextField(
                         controller: emailController,
@@ -156,7 +155,7 @@ class FindPw extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: 130,
+                    width: 180,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Color.fromARGB(255, 89, 89, 89),
@@ -167,7 +166,7 @@ class FindPw extends StatelessWidget {
                       child: DropdownButton(
                         underline: SizedBox(),
                         value: emailSelect,
-                        items: email.map((String email) {
+                        items: emaillist.map((String email) {
                           return DropdownMenuItem(
                             value: email,
                             child: Text(
@@ -182,41 +181,21 @@ class FindPw extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text('인증하기'),
-                    ),
-                  ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 280,
-                    height: 50,
-                    child: TextField(
-                      controller: emailCheckController,
-                      decoration: InputDecoration(
-                        labelText: '이메일 인증번호를 입력하세요',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    child:
-                        ElevatedButton(onPressed: () {}, child: Text('인증확인')),
-                  )
-                ],
-              ),
-            ),
-            ElevatedButton(onPressed: () {}, child: Text('비밀번호 찾기'))
+            ElevatedButton(
+                onPressed: () {
+                  findpw.id = idController.text;
+                  findpw.name = nameController.text;
+                  findpw.phone = findpw.phoneSelect +
+                      phone1Controller.text +
+                      phone2Controller.text;
+                  findpw.email =
+                      emailController.text + '@' + findpw.emailSelect;
+                  findpw.findUserPw();
+                },
+                child: Text('비밀번호 찾기'))
           ],
         ),
       ),
