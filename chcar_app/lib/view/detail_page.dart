@@ -1,8 +1,5 @@
-// detail_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../vm/detail_page_controller.dart';
 import 'detail_page_image_slider.dart';
 import 'predict_page.dart';
@@ -12,6 +9,11 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DetailController controller1 = Get.put(DetailController());
+    print('실행되고 있음? : $controller1');
+    dynamic what = controller1.getJSONData;
+    print('실행되고 있음? : $what');
+
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -60,7 +62,27 @@ class DetailPage extends StatelessWidget {
                       ],
                     ),
             ),
-            Text('data')
+            GetBuilder<DetailController>(
+              builder: (controller) {
+                return Center(
+                  child: controller.data.isEmpty
+                      ? const CircularProgressIndicator()
+                      : Column(
+                          children: controller.data.map((colorData) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text('색상: '),
+                                  Text(colorData['color']),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                );
+              },
+            ),
           ],
         ),
       ),

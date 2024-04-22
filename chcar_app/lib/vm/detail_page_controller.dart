@@ -1,20 +1,36 @@
 // detail_controller.dart
 
 import 'dart:async';
+import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../model/write.dart';
+import 'package:http/http.dart' as http;
 
 class DetailController extends GetxController {
   final RxList<Write> writeList = <Write>[].obs;
   late Timer _timer;
   RxInt _currentIndex = RxInt(0);
+  List data = [];
 
   @override
   void onInit() {
     super.onInit();
     fetchWrites();
+  }
+
+  getJSONData() async {
+    var url =
+        Uri.parse('http://localhost:8080/Flutter/team_car_JSP/selectCar.jsp');
+
+    print('이건 URL이야 : $url');
+    var response = await http.get(url);
+    var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
+    List result = dataConvertedJSON['results'];
+    print(result);
+    data.addAll(result);
+    update();
   }
 
   void fetchWrites() async {
