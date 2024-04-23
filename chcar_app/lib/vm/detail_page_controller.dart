@@ -29,7 +29,7 @@ class DetailController extends GetxController {
   getJSONData() async {
     print('이건 카시퀀스야 : $carSeq');
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/team_car_JSP/selectCar.jsp?carSeq=$carSeq');
+        'http://localhost:8080/Flutter/Chcar/JSP/selectCar.jsp?carSeq=$carSeq');
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
     List result = dataConvertedJSON['results'];

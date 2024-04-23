@@ -1,12 +1,11 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:chcar_app/view/sale_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart'; // GetX
+import 'package:get/get.dart';
 import '../vm/detail_page_controller.dart';
-import 'detail_page_image_slider.dart';
 import 'predict_page.dart';
 
+// ignore: use_key_in_widget_constructors
 class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -80,8 +79,10 @@ class DetailPage extends StatelessWidget {
 
                                 Container(
                                   color: Colors.amber,
-                                  width: 300,
-                                  height: 300,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.7,
                                   child: Swiper(
                                     autoplay: true,
                                     autoplayDelay: 1000,
