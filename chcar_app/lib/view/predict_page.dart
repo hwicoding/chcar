@@ -72,14 +72,14 @@ class _PredictPageState extends State<PredictPage> {
  
   }
   // 브랜드 목록 드롭다운버튼 리스트를 json 으로 받는 함수
-  Future<void> goconnected() async {
+    goconnected() async {
     await dropdownBrandList.getbrand();
     carbrand = dropdownBrandList.carbrand;
     print(carbrand);
     setState(() {});
   }
 // 모델 목록 드롭다운버튼 리스트를 json 으로 받는 함수
-  Future<void> goconnected2() async {
+    goconnected2() async {
     carmodel.clear();
     await dropdownBrandList.getmodel();
     carmodel = dropdownBrandList.carmodel;

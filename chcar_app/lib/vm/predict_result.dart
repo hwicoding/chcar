@@ -4,9 +4,7 @@ import 'package:http/http.dart' as http;
 
 class ShowResult extends GetxController {
   List data = [];
-  //var go = Get.arguments;
-  //Predictinfo info = Predictinfo();
-  
+    
   String whatmodel = '';
   String whatyear = '';
   String whatpower = '';

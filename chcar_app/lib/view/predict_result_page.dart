@@ -30,6 +30,10 @@ class ResultPage extends StatelessWidget {
                     ? const CircularProgressIndicator()
                     : Column(
                         children: [
+
+                          
+
+
                           const Text(
                             '고객님의 차량 예측 판매가격은',
                             style: TextStyle(
