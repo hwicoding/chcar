@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 
   Future<void> getbrand() async {
   
-    var url = Uri.parse('http://localhost:8080/Flutter/JSP/selectbrand.jsp');
+    var url = Uri.parse('http://localhost:8080/Chcar/JSP/selectbrand.jsp');
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
     if (dataConvertedJSON is Map<String, dynamic>) {    
@@ -29,7 +29,7 @@ import 'package:http/http.dart' as http;
 
    getmodel() async {
        
-    var url = Uri.parse('http://localhost:8080/Flutter/JSP/selectmodel.jsp?brand=$whatB');
+    var url = Uri.parse('http://localhost:8080/Chcar/JSP/selectmodel.jsp?brand=$whatB');
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
     if (dataConvertedJSON is Map<String, dynamic>) {    

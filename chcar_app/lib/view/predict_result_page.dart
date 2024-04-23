@@ -6,13 +6,11 @@ import 'package:get/get.dart';
 class ResultPage extends StatelessWidget {
   ResultPage({super.key});
 
-  //late var argu = Get.arguments;
-
   @override
   Widget build(BuildContext context) {
     final ShowResult controller = Get.put(ShowResult());
     controller.navigater();
-
+    
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -41,7 +39,9 @@ class ResultPage extends StatelessWidget {
                           ),
                           SizedBox(
                             width: 290,
-                            child: Row(children: [
+                            child: Row(
+                              children: [
+
                               Text(
                                 '${(controller.resultvalue - controller.errorvalue).toInt()} ~ ${(controller.resultvalue + controller.errorvalue).toInt()}',
                                 style: const TextStyle(
@@ -73,10 +73,11 @@ class ResultPage extends StatelessWidget {
                                   child: ElevatedButton(
                                     onPressed: () {
                                       Get.to(SalePage());
+                                    
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color.fromARGB(
-                                            255, 79, 139, 116),
+                                        backgroundColor:
+                                            const Color.fromARGB(255, 79, 139, 116),
                                         foregroundColor: Colors.white,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
@@ -93,8 +94,8 @@ class ResultPage extends StatelessWidget {
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.white,
-                                        foregroundColor: const Color.fromARGB(
-                                            255, 79, 139, 116),
+                                        foregroundColor:
+                                            const Color.fromARGB(255, 79, 139, 116),
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10))),

@@ -50,7 +50,7 @@ class ShowResult extends GetxController {
     print(colorpoint);
     colordiv();
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/team_car_Rserve/$whatmodel.jsp?'
+        'http://localhost:8080/Chcar/Rserve/$whatmodel.jsp?'
         'year=$whatyear&power_ps=$whatpower&transmission_type=$whattrans&'
         'fuel_type=$whatfuel&fuel_consumption_l_100km=$whatcons&'
         'mileage_in_km=$whatmile&color_black=$whatcolb&color_silver=$whatcols&'
@@ -75,7 +75,7 @@ errorvalue = error;
   color4predict() async {
     colordiv();
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/team_car_Rserve/$whatmodel.jsp?'
+        'http://localhost:8080/Chcar/Rserve/$whatmodel.jsp?'
         'year=$whatyear&power_ps=$whatpower&transmission_type=$whattrans&'
         'fuel_type=$whatfuel&fuel_consumption_l_100km=$whatcons&'
         'mileage_in_km=$whatmile&color_black=$whatcolb&color_silver=$whatcols'
@@ -102,7 +102,7 @@ errorvalue = error;
   color5predict() async {
     colordiv();
     var url = Uri.parse(
-        'http://localhost:8080/Flutter/team_car_Rserve/$whatmodel.jsp?'
+        'http://localhost:8080/Chcar/Rserve/$whatmodel.jsp?'
         'year=$whatyear&power_ps=$whatpower&transmission_type=$whattrans&'
         'fuel_type=$whatfuel&fuel_consumption_l_100km=$whatcons&'
         'mileage_in_km=$whatmile&color_black=$whatcolb&color_silver=$whatcols'
