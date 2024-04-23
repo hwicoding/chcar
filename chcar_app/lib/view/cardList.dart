@@ -38,31 +38,34 @@ class CardListPage extends StatelessWidget {
       nickname: doc['usernickname'],
     );
 
-    return Card(
-        child: Row(
-      children: [
-        Image.network(
-          writeCard.imagepath,
-          width: 200,
-        ),
-        Column(
-          children: [
-            Row(
-              children: [
-                Text('${writeCard.carbrand}'),
-                SizedBox(
-                  width: 10,
-                ),
-                Text('${writeCard.carmodel}')
-              ],
-            ),
-            Text('생산년도 : ${writeCard.year}'),
-            Text('주행거리 : ${writeCard.km}km'),
-            Text('판매 가격 : ${writeCard.sellprice}'),
-            Text('판매자 : ${writeCard.nickname}'),
-          ],
-        )
-      ],
-    ));
+    return GestureDetector(
+      onTap: () {},
+      child: Card(
+          child: Row(
+        children: [
+          Image.network(
+            writeCard.imagepath,
+            width: 200,
+          ),
+          Column(
+            children: [
+              Row(
+                children: [
+                  Text('${writeCard.carbrand}'),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text('${writeCard.carmodel}')
+                ],
+              ),
+              Text('생산년도 : ${writeCard.year}'),
+              Text('주행거리 : ${writeCard.km}km'),
+              Text('판매 가격 : ${writeCard.sellprice}'),
+              Text('판매자 : ${writeCard.nickname}'),
+            ],
+          )
+        ],
+      )),
+    );
   }
 }
