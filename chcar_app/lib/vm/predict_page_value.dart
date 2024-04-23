@@ -27,8 +27,8 @@ import 'package:http/http.dart' as http;
     //update(); 
   }
 
-   getmodel() async {
-       
+    getmodel() async {
+
     var url = Uri.parse('http://localhost:8080/Chcar/JSP/selectmodel.jsp?brand=$whatB');
     var response = await http.get(url);
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
@@ -36,7 +36,7 @@ import 'package:http/http.dart' as http;
         var result = dataConvertedJSON['resultmodel'] as List<dynamic>;
         // 모델에 벨류값만 리스트에 추가
         //carmodel = [];
-         for (var item in result) {
+    for (var item in result) {
             carmodel.add(item['model']);
         }
     }
@@ -68,5 +68,5 @@ import 'package:http/http.dart' as http;
         ]);
   }
 
-  
+
 }

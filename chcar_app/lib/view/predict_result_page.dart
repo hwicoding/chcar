@@ -1,16 +1,24 @@
 import 'package:chcar_app/view/sale_page.dart';
+import 'package:chcar_app/vm/predict_insert.dart';
+
 import 'package:chcar_app/vm/predict_result.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ResultPage extends StatelessWidget {
-  ResultPage({super.key});
+  const ResultPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final ShowResult controller = Get.put(ShowResult());
-    controller.navigater();
-    
+    //final Predictinset controller2 = Get.put(Predictinset());
+    //controller.navigater();
+    //final box = GetStorage();
+    // controller2.model = box.read("model");
+    // controller2.error = (controller.errorvalue).toString();
+    // controller2.price = (controller.resultvalue).toString();
+    // controller2.getbrand();
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -30,10 +38,6 @@ class ResultPage extends StatelessWidget {
                     ? const CircularProgressIndicator()
                     : Column(
                         children: [
-
-                          
-
-
                           const Text(
                             '고객님의 차량 예측 판매가격은',
                             style: TextStyle(
@@ -43,9 +47,7 @@ class ResultPage extends StatelessWidget {
                           ),
                           SizedBox(
                             width: 290,
-                            child: Row(
-                              children: [
-
+                            child: Row(children: [
                               Text(
                                 '${(controller.resultvalue - controller.errorvalue).toInt()} ~ ${(controller.resultvalue + controller.errorvalue).toInt()}',
                                 style: const TextStyle(
@@ -77,11 +79,10 @@ class ResultPage extends StatelessWidget {
                                   child: ElevatedButton(
                                     onPressed: () {
                                       Get.to(SalePage());
-                                    
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            const Color.fromARGB(255, 79, 139, 116),
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 79, 139, 116),
                                         foregroundColor: Colors.white,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
@@ -98,8 +99,8 @@ class ResultPage extends StatelessWidget {
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.white,
-                                        foregroundColor:
-                                            const Color.fromARGB(255, 79, 139, 116),
+                                        foregroundColor: const Color.fromARGB(
+                                            255, 79, 139, 116),
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10))),
