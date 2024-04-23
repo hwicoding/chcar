@@ -5,7 +5,6 @@ import 'package:chcar_app/view/join_page.dart';
 import 'package:chcar_app/view/main_page.dart';
 import 'package:chcar_app/vm/findId_vm.dart';
 import 'package:chcar_app/vm/findPw_vm.dart';
-import 'package:chcar_app/vm/mainCardList_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -58,7 +57,6 @@ class Login extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  Get.put(CardListVm());
                   blankCheck();
                 },
                 child: Text('로그인')),

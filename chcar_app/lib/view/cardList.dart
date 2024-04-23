@@ -1,8 +1,7 @@
-import 'package:chcar_app/model/card.dart';
-import 'package:chcar_app/vm/mainCardList_vm.dart';
+import 'package:chcar_app/model/collect.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CardListPage extends StatelessWidget {
   const CardListPage({Key? key});
@@ -28,37 +27,42 @@ class CardListPage extends StatelessWidget {
   }
 
   Widget _showCard(DocumentSnapshot doc) {
-    final writeCard = WriteCard(
+    final writeCard = CollectInfo(
       seq: doc['seq'],
-      id: doc['id'],
-      carSeq: doc['carseq'],
       sellprice: doc['sellprice'],
       imagepath: doc['img_01'],
+      carbrand: doc['carbrand'],
+      carmodel: doc['carmodel'],
+      km: doc['carkm'],
+      year: doc['caryear'],
+      nickname: doc['usernickname'],
     );
 
-    return GetBuilder<CardListVm>(
-      initState: (state) {},
-      builder: (controller) {
-        String nickname = '';
-        controller.findUserId(writeCard.id, nickname);
-        print(nickname);
-        return Card(
-            child: Row(
+    return Card(
+        child: Row(
+      children: [
+        Image.network(
+          writeCard.imagepath,
+          width: 200,
+        ),
+        Column(
           children: [
-            Image.network(
-              writeCard.imagepath,
-              width: 200,
-            ),
-            Column(
+            Row(
               children: [
-                Text('판매 가격 : ${writeCard.sellprice}'),
-                Text('작성자 아이디 ${writeCard.id}'),
-                //Text('작성자 닉네임 ${nickname}'),
+                Text('${writeCard.carbrand}'),
+                SizedBox(
+                  width: 10,
+                ),
+                Text('${writeCard.carmodel}')
               ],
-            )
+            ),
+            Text('생산년도 : ${writeCard.year}'),
+            Text('주행거리 : ${writeCard.km}km'),
+            Text('판매 가격 : ${writeCard.sellprice}'),
+            Text('판매자 : ${writeCard.nickname}'),
           ],
-        ));
-      },
-    );
+        )
+      ],
+    ));
   }
 }
