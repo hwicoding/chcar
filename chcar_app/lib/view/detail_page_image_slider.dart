@@ -29,26 +29,44 @@ class _DetailPageImageSliderState extends State<DetailPageImageSlider> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      widget.onNext();
-    });
+    _startTimer();
   }
 
   @override
   void dispose() {
-    _timer.cancel();
+    _stopTimer();
     super.dispose();
+  }
+
+  // 타이머 시작 메서드
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (_) {
+      widget.onNext();
+    });
+  }
+
+  // 타이머 정지 메서드
+  void _stopTimer() {
+    _timer.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      height: 200,
-      child: Image.network(
-        widget.images[widget.currentIndex],
-        fit: BoxFit.cover,
-      ),
+    return Stack(
+      children: [
+        // 이미지 표시
+        SizedBox(
+          width: 250,
+          height: 250,
+          child: Image.network(
+            // 현재 이미지 인덱스를 이미지 리스트의 길이로 나누어 순환하도록 수정
+            widget.images[widget.currentIndex % widget.images.length],
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+        ),
+      ],
     );
   }
 }
