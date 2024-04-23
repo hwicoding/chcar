@@ -6,8 +6,6 @@ import 'package:get/get.dart';
 class ResultPage extends StatelessWidget {
   ResultPage({super.key});
 
-  //late var argu = Get.arguments;
-  
   @override
   Widget build(BuildContext context) {
     final ShowResult controller = Get.put(ShowResult());
@@ -43,7 +41,7 @@ class ResultPage extends StatelessWidget {
                             width: 290,
                             child: Row(
                               children: [
-                                                    
+
                               Text(
                                 '${(controller.resultvalue - controller.errorvalue).toInt()} ~ ${(controller.resultvalue + controller.errorvalue).toInt()}',
                                 style: const TextStyle(
@@ -75,7 +73,7 @@ class ResultPage extends StatelessWidget {
                                   child: ElevatedButton(
                                     onPressed: () {
                                       Get.to(SalePage());
-                                        
+                                    
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:

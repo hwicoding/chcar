@@ -264,7 +264,6 @@ class _PredictPageState extends State<PredictPage> {
                                 groupValue: _selectedOption1,
                                 onChanged: (value) {
                                   _selectedOption1 = value!;
-                                  print("라디오버튼 밸류값"  "$_selectedOption1");
                                   setState(() {});
                                 },
                               ),
@@ -444,6 +443,7 @@ class _PredictPageState extends State<PredictPage> {
                                   yearEditingController.text.isEmpty) {
                                 dropdownBrandList.showdia();
                               } else {
+                                // VM 에 변수를 넣어준다
                                 controller.whatmodel = dropvalue2;
                                 controller.colorpoint = initcol;
                                 controller.whattrans = _selectedOption1;
@@ -451,7 +451,10 @@ class _PredictPageState extends State<PredictPage> {
                                 controller.whatyear = yearEditingController.text;
                                 controller.whatpower = pstextEditingController.text;
                                 controller.whatcons = fueltextEditingController.text;
-                                controller.whatmile = kmtextEditingController.text;    
+                                controller.whatmile = kmtextEditingController.text;  
+                                //스토리지에 추가하여 판매글 작성시 값을 넣어준다
+                                
+
                                   Get.to(ResultPage() 
                                   );  
                                   setState(() {});
