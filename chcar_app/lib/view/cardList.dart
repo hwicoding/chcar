@@ -37,7 +37,11 @@ class CardListPage extends StatelessWidget {
     );
 
     return GetBuilder<CardListVm>(
+      initState: (state) {},
       builder: (controller) {
+        String nickname = '';
+        controller.findUserId(writeCard.id, nickname);
+        print(nickname);
         return Card(
             child: Row(
           children: [
@@ -49,6 +53,7 @@ class CardListPage extends StatelessWidget {
               children: [
                 Text('판매 가격 : ${writeCard.sellprice}'),
                 Text('작성자 아이디 ${writeCard.id}'),
+                //Text('작성자 닉네임 ${nickname}'),
               ],
             )
           ],

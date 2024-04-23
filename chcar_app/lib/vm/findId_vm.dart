@@ -25,7 +25,7 @@ class FindIdVm extends GetxController {
 
   findUserId() async {
     // HTTP POST 요청을 보내기 위해 http.post를 사용합니다.
-    var url = Uri.parse('http://localhost:8080/Chcar/findId.jsp');
+    var url = Uri.parse('http://localhost:8080/Chcar/JSP/findId.jsp');
     var response = await http.post(
       url,
       body: {

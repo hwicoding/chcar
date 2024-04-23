@@ -26,7 +26,7 @@ class FindPwVm extends ChangeNotifier {
 
   findUserPw() async {
     // HTTP POST 요청을 보내기 위해 http.post를 사용합니다.
-    var url = Uri.parse('http://localhost:8080/Chcar/findPw.jsp');
+    var url = Uri.parse('http://localhost:8080/Chcar/JSP/findPw.jsp');
     var response = await http.post(
       url,
       body: {

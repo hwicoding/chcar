@@ -103,7 +103,7 @@ class Login extends StatelessWidget {
     String pw = pwController.text;
 
     // HTTP POST 요청을 보내기 위해 http.post를 사용합니다.
-    var url = Uri.parse('http://localhost:8080/Chcar/LoginCheck.jsp');
+    var url = Uri.parse('http://localhost:8080/Chcar/JSP/LoginCheck.jsp');
     var response = await http.post(
       url,
       body: {
@@ -117,7 +117,7 @@ class Login extends StatelessWidget {
 
     if (result == '1') {
       // HTTP POST 요청을 보내기 위해 http.post를 사용합니다.
-      var url = Uri.parse('http://localhost:8080/Chcar/readNickname.jsp');
+      var url = Uri.parse('http://localhost:8080/Chcar/JSP/readNickname.jsp');
       var response = await http.post(
         url,
         body: {
