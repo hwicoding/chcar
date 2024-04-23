@@ -74,7 +74,7 @@ class ResultPage extends StatelessWidget {
                                   padding: const EdgeInsets.all(20.0),
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      Get.to( const SalePage());
+                                      Get.to(SalePage());
                                         
                                     },
                                     style: ElevatedButton.styleFrom(
