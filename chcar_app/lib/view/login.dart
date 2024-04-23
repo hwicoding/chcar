@@ -3,9 +3,11 @@ import 'package:chcar_app/view/findId.dart';
 import 'package:chcar_app/view/findPw.dart';
 import 'package:chcar_app/view/join_page.dart';
 import 'package:chcar_app/view/main_page.dart';
+import 'package:chcar_app/vm/findId_vm.dart';
 import 'package:chcar_app/vm/findPw_vm.dart';
+import 'package:chcar_app/vm/mainCardList_vm.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -56,6 +58,7 @@ class Login extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
+                  Get.put(CardListVm());
                   blankCheck();
                 },
                 child: Text('로그인')),
@@ -66,7 +69,11 @@ class Login extends StatelessWidget {
                     onPressed: () => Get.to(Join()), child: Text('회원가입')),
                 Text('|'),
                 TextButton(
-                    onPressed: () => Get.to(FindId()), child: Text('아이디 찾기')),
+                    onPressed: () {
+                      Get.put(FindIdVm());
+                      Get.to(FindId());
+                    },
+                    child: Text('아이디 찾기')),
                 Text('|'),
                 TextButton(
                     onPressed: () => Get.to(ChangeNotifierProvider(
