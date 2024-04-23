@@ -26,6 +26,7 @@ class DetailPage extends StatelessWidget {
       // Body
       body: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // GetX - 상태 관리를 위한 위젯
             Obx(
@@ -112,17 +113,32 @@ class DetailPage extends StatelessWidget {
                                             '모델', colorData['model']),
                                       ],
                                     ),
-                                    buildTextFieldRow('연도', colorData['year']),
-                                    buildTextFieldRow('색상', colorData['color']),
-                                    buildTextFieldRow('주행거리', colorData['km']),
-                                    buildTextFieldRow(
-                                        '연료유형', colorData['fuel']),
-                                    buildTextFieldRow(
-                                        '변속기유형', colorData['transmission']),
-                                    buildTextFieldRow(
-                                        '차량연비', colorData['efficiency']),
-                                    buildTextFieldRow(
-                                        '차량마력', colorData['power_ps']),
+                                    Row(
+                                      children: [
+                                        buildTextFieldRow(
+                                            '연도', colorData['year']),
+                                        buildTextFieldRow(
+                                            '색상', colorData['color']),
+                                        buildTextFieldRow(
+                                            '주행거리', colorData['km']),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        buildTextFieldRow(
+                                            '연료유형', colorData['fuel']),
+                                        buildTextFieldRow(
+                                            '변속기유형', colorData['transmission']),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        buildTextFieldRow(
+                                            '차량연비', colorData['efficiency']),
+                                        buildTextFieldRow(
+                                            '차량마력', colorData['power_ps']),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               );
@@ -190,10 +206,9 @@ class DetailPage extends StatelessWidget {
 
   Widget buildTextFieldRow(String labelText, String initialValue) {
     return Column(
-      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
-          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               '$labelText ',
@@ -205,11 +220,11 @@ class DetailPage extends StatelessWidget {
             ),
             // SizedBox(
             //   width: 75,
-            // )
+            // ),
           ],
         ),
         SizedBox(
-          height: 100,
+          height: 80,
           width: 140,
           child: TextField(
             controller: TextEditingController(
