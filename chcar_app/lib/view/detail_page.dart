@@ -1,3 +1,4 @@
+import 'package:chcar_app/view/sale_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // GetX
 import '../vm/detail_page_controller.dart';
@@ -102,6 +103,14 @@ class DetailPage extends StatelessWidget {
                                 child: Column(
                                   // 컬럼 위젯
                                   children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Get.to(const SalePage());
+                                      },
+                                      child: const Text(
+                                        '판매 페이지를 위한 숨구멍',
+                                      ),
+                                    ),
                                     // 자식 위젯 리스트
                                     Row(
                                       // mainAxisAlignment:
@@ -206,9 +215,9 @@ class DetailPage extends StatelessWidget {
 
   Widget buildTextFieldRow(String labelText, String initialValue) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               '$labelText ',
@@ -224,7 +233,7 @@ class DetailPage extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 80,
+          height: 100,
           width: 140,
           child: TextField(
             controller: TextEditingController(
