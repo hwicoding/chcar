@@ -507,7 +507,7 @@ class _JoinState extends State<Join> {
     String email = emailController.text + '@' + emailSelect;
 
     // HTTP POST 요청을 보내기 위해 http.post를 사용합니다.
-    var url = Uri.parse('http://localhost:8080/Chcar/InsertUser.jsp');
+    var url = Uri.parse('http://localhost:8080/Chcar/JSP/InsertUser.jsp');
     var response = await http.post(
       url,
       body: {
@@ -553,7 +553,7 @@ class _JoinState extends State<Join> {
   idCheck() async {
     String id = idController.text;
     // HTTP POST 요청을 보내기 위해 http.post를 사용합니다.
-    var url = Uri.parse('http://localhost:8080/Chcar/IdCheck.jsp');
+    var url = Uri.parse('http://localhost:8080/Chcar/JSP/IdCheck.jsp');
     var response = await http.post(
       url,
       body: {
@@ -581,7 +581,7 @@ class _JoinState extends State<Join> {
   nicknameCheck() async {
     String nickname = nicknameController.text;
     // HTTP POST 요청을 보내기 위해 http.post를 사용합니다.
-    var url = Uri.parse('http://localhost:8080/Chcar/nicknameCheck.jsp');
+    var url = Uri.parse('http://localhost:8080/Chcar/JSP/nicknameCheck.jsp');
     var response = await http.post(
       url,
       body: {
