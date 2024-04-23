@@ -37,7 +37,6 @@ class FindIdVm extends GetxController {
     // 서버로부터 받은 응답을 JSON으로 디코딩합니다.
     var dataConvertedJson = json.decode(utf8.decode(response.bodyBytes));
     var result = dataConvertedJson['result'];
-    print(result);
 
     if (result != '') {
       Get.defaultDialog(
