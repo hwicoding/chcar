@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../model/write.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,9 @@ class DetailController extends GetxController {
   late Timer _timer;
   late String carSeq = '1';
   RxInt _currentIndex = RxInt(0);
+  Rx<XFile?> imageFile = Rx<XFile?>(null);
   List data = [];
+  List imgList = [];
 
   @override
   void onInit() {
@@ -47,13 +50,19 @@ class DetailController extends GetxController {
         carSeq: doc['carseq'],
         carInfo: doc['carinfo'],
         sellPrice: doc['sellprice'],
-        lat: doc['lat'],
-        lng: doc['lng'],
-        img: doc['img'],
+        img_01: doc['img_01'],
+        img_02: doc['img_02'],
+        // img_03: doc['img_03'],
         state: doc['state'],
       );
     }).toList();
     writeList.assignAll(writes);
+    imgList.add(
+      writes[0].img_01,
+    );
+    imgList.add(
+      writes[0].img_02,
+    );
 
     // Timer 설정
     _timer = Timer.periodic(const Duration(seconds: 3), (_) {
@@ -78,4 +87,12 @@ class DetailController extends GetxController {
   }
 
   RxInt get currentIndex => _currentIndex;
+
+  void getImageFromDevice(ImageSource imageSource) async {
+    final picker = ImagePicker();
+    XFile? pickedFile = await picker.pickImage(source: imageSource);
+    if (pickedFile != null) {
+      imageFile.value = pickedFile;
+    }
+  }
 }

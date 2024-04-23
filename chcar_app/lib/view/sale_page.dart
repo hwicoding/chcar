@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../vm/detail_page_controller.dart';
 import 'predict_page.dart';
 
+// ignore: use_key_in_widget_constructors
 class SalePage extends StatelessWidget {
-  const SalePage({super.key});
+  final DetailController controller = Get.put(DetailController());
+  final picker = ImagePicker(); // picker 변수 선언 추가
 
   @override
   Widget build(BuildContext context) {
@@ -210,6 +215,53 @@ class SalePage extends StatelessWidget {
                                         ),
                                       ],
                                     ),
+                                    Container(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              6,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: const Color.fromARGB(
+                                              255, 188, 186, 186),
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Obx(() {
+                                        return SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              3 *
+                                              2,
+                                          height: 150,
+                                          child: controller.imageFile.value ==
+                                                  null
+                                              ? Center(
+                                                  child: Text(
+                                                    '이미지를 선택해 주세요!',
+                                                    style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onPrimaryContainer,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Image.file(File(controller
+                                                  .imageFile.value!.path)),
+                                        );
+                                      }),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 0, 0, 15),
+                                      child: OutlinedButton(
+                                        onPressed: () {
+                                          getImageFromDevice(
+                                              ImageSource.gallery);
+                                        },
+                                        child: const Text('사진 추가하기'),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -331,5 +383,16 @@ class SalePage extends StatelessWidget {
       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
       (Match m) => '${m[1]},',
     );
+  }
+
+  void getImageFromDevice(ImageSource imageSource) async {
+    final XFile? pickedFile = await picker.pickImage(source: imageSource);
+    if (pickedFile != null) {
+      // DetailController의 getImageFromDevice 메서드 호출
+      controller.getImageFromDevice(imageSource);
+
+      // 이미지 파일 업데이트
+      controller.imageFile.value = pickedFile;
+    }
   }
 } // end

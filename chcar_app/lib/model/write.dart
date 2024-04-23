@@ -10,12 +10,10 @@ class Write {
   final String carInfo;
   // 판매 가격
   final String sellPrice;
-  // 위도
-  final String lat;
-  // 경도
-  final String lng;
   // 이미지 URL
-  final String img;
+  final String img_01;
+  final String img_02;
+  // final String img_03;
   // 상태 표시
   final int state;
 
@@ -26,9 +24,9 @@ class Write {
     required this.carSeq,
     required this.carInfo,
     required this.sellPrice,
-    required this.lat,
-    required this.lng,
-    required this.img,
+    required this.img_01,
+    required this.img_02,
+    // required this.img_03,
     required this.state,
   });
 }
