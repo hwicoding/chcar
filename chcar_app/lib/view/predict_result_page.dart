@@ -12,13 +12,9 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ShowResult controller = Get.put(ShowResult());
-    //final Predictinset controller2 = Get.put(Predictinset());
-    //controller.navigater();
-    //final box = GetStorage();
-    // controller2.model = box.read("model");
-    // controller2.error = (controller.errorvalue).toString();
-    // controller2.price = (controller.resultvalue).toString();
-    // controller2.getbrand();
+    final Predictinset controller2 = Get.put(Predictinset());
+
+    final box = GetStorage();
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -38,6 +34,14 @@ class ResultPage extends StatelessWidget {
                     ? const CircularProgressIndicator()
                     : Column(
                         children: [
+                                SizedBox(
+                                    height: 150,
+                                  child: Text("차량 : ${box.read('model')}",style: const TextStyle(
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 79, 139, 116)
+                                  ),),
+                                ),
                           const Text(
                             '고객님의 차량 예측 판매가격은',
                             style: TextStyle(
@@ -78,6 +82,10 @@ class ResultPage extends StatelessWidget {
                                   padding: const EdgeInsets.all(20.0),
                                   child: ElevatedButton(
                                     onPressed: () {
+                                controller2.model = box.read("model");
+                                controller2.error = (controller.errorvalue).toString();
+                                controller2.price = (controller.resultvalue).toString();
+                                controller2.getbrand();
                                       Get.to(SalePage());
                                     },
                                     style: ElevatedButton.styleFrom(
@@ -94,6 +102,10 @@ class ResultPage extends StatelessWidget {
                                   padding: const EdgeInsets.all(20.0),
                                   child: ElevatedButton(
                                     onPressed: () {
+                                controller2.model = box.read("model");
+                                controller2.error = (controller.errorvalue).toString();
+                                controller2.price = (controller.resultvalue).toString();
+                                controller2.getbrand();
                                       Get.back();
                                       Get.back();
                                     },

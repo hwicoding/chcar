@@ -1,4 +1,3 @@
-
 import 'package:chcar_app/view/predict_result_page.dart';
 import 'package:chcar_app/vm/predict_insert.dart';
 import 'package:chcar_app/vm/predict_page_value.dart';
@@ -63,27 +62,28 @@ class _PredictPageState extends State<PredictPage> {
     dropvalue1 = 'Audi';
     dropvalue2 = 'Audi_A3';
     initcol = 'black';
-    _selectedOption1 = '';
-    _selectedOption2 = '';
+    _selectedOption1 = trantype[0];
+    _selectedOption2 = fueltype[0];
     whatb = 'Audi';
 
     dropdownBrandList.whatB = whatb;
-    
-    col =[];
+
+    col = [];
     // 페이지 진입시 DB에서 차량 정보 가져오기
     goconnected();
     goconnected2();
- 
   }
+
   // 브랜드 목록 드롭다운버튼 리스트를 json 으로 받는 함수
-    goconnected() async {
+  goconnected() async {
     await dropdownBrandList.getbrand();
     carbrand = dropdownBrandList.carbrand;
     print(carbrand);
     setState(() {});
   }
+
 // 모델 목록 드롭다운버튼 리스트를 json 으로 받는 함수
-    goconnected2() async {
+  goconnected2() async {
     carmodel.clear();
     await dropdownBrandList.getmodel();
     carmodel = dropdownBrandList.carmodel;
@@ -97,9 +97,9 @@ class _PredictPageState extends State<PredictPage> {
 
   @override
   Widget build(BuildContext context) {
-  final ShowResult controller = Get.put(ShowResult());
-  final Predictinset controller2 = Get.put(Predictinset());
-  
+    final ShowResult controller = Get.put(ShowResult());
+    //final Predictinset controller2 = Get.put(Predictinset());
+
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -146,12 +146,13 @@ class _PredictPageState extends State<PredictPage> {
                               );
                             }).toList(),
                             value: dropvalue1,
-                            onChanged: (value) {                  
-                              dropvalue1 = value.toString();
-                              dropvalue2 = carmodel[0];
+                            onChanged: (value) {
+                              
+                                //dropvalue1 ='';
+                              dropvalue1 = value!.toString();
                               dropdownBrandList.whatB = dropvalue1;
                               goconnected2();
-                              setState((){});
+                              setState(() {});
                             },
                           ),
                         ),
@@ -176,15 +177,15 @@ class _PredictPageState extends State<PredictPage> {
                         SizedBox(
                           width: 100,
                           child: DropdownButton(
-                            items: carmodel.map((String model)  {
+                            items: carmodel.map((String model) {
                               return DropdownMenuItem(
                                 value: model,
                                 child: Text(model),
                               );
                             }).toList(),
                             value: dropvalue2,
-                            onChanged: (value){                
-                              dropvalue2 = value.toString();
+                            onChanged: (value) {
+                              dropvalue2 = value!.toString();
                               setState(() {});
                             },
                           ),
@@ -344,8 +345,6 @@ class _PredictPageState extends State<PredictPage> {
                             ),
                           ),
                         ),
-                        
-    
                         const SizedBox(
                           width: 300,
                           child: Row(
@@ -448,29 +447,29 @@ class _PredictPageState extends State<PredictPage> {
                                 controller.colorpoint = initcol;
                                 controller.whattrans = _selectedOption1;
                                 controller.whatfuel = _selectedOption2;
-                                controller.whatyear = yearEditingController.text;
-                                controller.whatpower = pstextEditingController.text;
-                                controller.whatcons = fueltextEditingController.text;
-                                controller.whatmile = kmtextEditingController.text;  
+                                controller.whatyear =
+                                    yearEditingController.text;
+                                controller.whatpower =
+                                    pstextEditingController.text;
+                                controller.whatcons =
+                                    fueltextEditingController.text;
+                                controller.whatmile =
+                                    kmtextEditingController.text;
+                                controller.navigater();
                                 //스토리지에 추가하여 판매글 작성시 값을 넣어준다
                                 box.write("brand", dropvalue1);
                                 box.write("model", dropvalue2);
                                 box.write("color", initcol);
                                 box.write("year", yearEditingController.text);
                                 box.write("power", yearEditingController.text);
-                                box.write("연료효율", fueltextEditingController.text);
+                                box.write(
+                                    "연료효율", fueltextEditingController.text);
                                 box.write("mile", dropvalue2);
                                 box.write("fuel", _selectedOption2);
                                 box.write("transmission", _selectedOption1);
-                                controller.navigater();
-                                // mysql 인서트 
-                                controller2.model = box.read("model");
-                                controller2.error = (controller.errorvalue).toString();
-                                controller2.price = (controller.resultvalue).toString();
-                                controller2.getbrand();
-                                controller2.getbrand();
-                                  Get.to(ResultPage());  
-                                  setState(() {});
+
+                                Get.to(ResultPage());
+                                setState(() {});
                               }
                             },
                             style: ElevatedButton.styleFrom(
