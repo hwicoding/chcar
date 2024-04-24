@@ -17,8 +17,6 @@ class PredictPage extends StatefulWidget {
 }
 
 class _PredictPageState extends State<PredictPage> {
-  //년도
-  DateTime? pickertime;
   // 텍스트 필드
   late TextEditingController yearEditingController;
   late TextEditingController pstextEditingController;
@@ -460,13 +458,12 @@ class _PredictPageState extends State<PredictPage> {
                                 box.write("brand", dropvalue1);
                                 box.write("model", dropvalue2);
                                 box.write("color", initcol);
-                                box.write("year", yearEditingController.text);
-                                box.write("power", yearEditingController.text);
-                                box.write(
-                                    "연료효율", fueltextEditingController.text);
-                                box.write("mile", dropvalue2);
-                                box.write("fuel", _selectedOption2);
                                 box.write("transmission", _selectedOption1);
+                                box.write("fuel", _selectedOption2);
+                                box.write("year", yearEditingController.text);
+                                box.write("power", pstextEditingController.text);
+                                box.write("연료효율", fueltextEditingController.text);
+                                box.write("mile", kmtextEditingController.text);
 
                                 Get.to(ResultPage());
                                 setState(() {});
