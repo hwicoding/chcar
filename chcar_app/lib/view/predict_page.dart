@@ -1,5 +1,4 @@
 import 'package:chcar_app/view/predict_result_page.dart';
-import 'package:chcar_app/vm/predict_insert.dart';
 import 'package:chcar_app/vm/predict_page_value.dart';
 import 'package:chcar_app/vm/predict_result.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,10 +69,13 @@ class _PredictPageState extends State<PredictPage> {
     // 페이지 진입시 DB에서 차량 정보 가져오기
     goconnected();
     goconnected2();
+    colorchoice();
+
   }
 
   // 브랜드 목록 드롭다운버튼 리스트를 json 으로 받는 함수
   goconnected() async {
+    //carbrand.clear();
     await dropdownBrandList.getbrand();
     carbrand = dropdownBrandList.carbrand;
     print(carbrand);
@@ -82,21 +84,22 @@ class _PredictPageState extends State<PredictPage> {
 
 // 모델 목록 드롭다운버튼 리스트를 json 으로 받는 함수
   goconnected2() async {
-    carmodel.clear();
+    //carmodel.clear();
     await dropdownBrandList.getmodel();
     carmodel = dropdownBrandList.carmodel;
     print(carmodel);
     setState(() {});
   }
 
-  Future<void> colorchoice() async {
-    //dropdownBrandList.whatcolor();
+  colorchoice() async {
+    await dropdownBrandList.whatcolor();
+      col  =  dropdownBrandList.col;
+      setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final ShowResult controller = Get.put(ShowResult());
-    //final Predictinset controller2 = Get.put(Predictinset());
 
     return Scaffold(
       appBar: AppBar(
@@ -144,10 +147,12 @@ class _PredictPageState extends State<PredictPage> {
                               );
                             }).toList(),
                             value: dropvalue1,
-                            onChanged: (value) {
-                              dropvalue1 = value!.toString();
-                              dropdownBrandList.whatB = dropvalue1;
-                              goconnected2();
+                            onChanged: (value){
+                              dropvalue1 = value.toString();
+                              dropdownBrandList.whatB = value.toString();
+                              print(dropvalue1);
+                              dropdownBrandList.getmodel();
+                              //dropdownBrandList.carmodel = [];
                               setState(() {});
                             },
                           ),
@@ -173,7 +178,7 @@ class _PredictPageState extends State<PredictPage> {
                         SizedBox(
                           width: 100,
                           child: DropdownButton(
-                            items: carmodel.map((String model) {
+                            items: carmodel.map((String model){
                               return DropdownMenuItem(
                                 value: model,
                                 child: Text(model),
@@ -182,7 +187,9 @@ class _PredictPageState extends State<PredictPage> {
                             value: dropvalue2,
                             onChanged: (value) {
                               dropvalue2 = value!.toString();
-                              setState(() {});
+                              dropdownBrandList.model = dropvalue2;
+                              print(dropvalue2);
+                              setState((){});
                             },
                           ),
                         ),
@@ -207,7 +214,7 @@ class _PredictPageState extends State<PredictPage> {
                         SizedBox(
                           width: 100,
                           child: DropdownButton(
-                            items: dropdownBrandList.col.map((String model) {
+                            items: col.map((String model) {
                               return DropdownMenuItem(
                                 value: model,
                                 child: Text(model),
@@ -456,6 +463,7 @@ class _PredictPageState extends State<PredictPage> {
                                 box.write("brand", dropvalue1);
                                 box.write("model", dropvalue2);
                                 box.write("color", initcol);
+                                // 수치화된걸 다시 문자로 저장
                                 if(_selectedOption1 == "1") {
                                 box.write("transmission", "manual");
                                 }else {
