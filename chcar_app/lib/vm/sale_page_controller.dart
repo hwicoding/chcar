@@ -1,9 +1,9 @@
 // detail_controller.dart
 
-import 'dart:async';
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../model/write.dart';
@@ -13,14 +13,38 @@ class SaleController extends GetxController {
   // RxList - GetX에서 제공해주는 반응형 리스트.(실시간 UI 업데이트 기능)
   final RxList<Write> writeList = <Write>[].obs;
   String carSeq = '';
-  RxInt _currentIndex = RxInt(0);
   Rx<XFile?> imageFile = Rx<XFile?>(null);
   List data = [];
   List imgList = [];
   // 이미지 피커가 활성화되어 있는지 여부를 추적하는 상태 변수
   bool _isImagePickerActive = false;
+  final box = GetStorage();
+  List<String> savedValues = [];
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    // 리스트 초기화
+    savedValues.clear();
+
+    // 값들을 리스트에 추가
+    savedValues.add(box.read("brand"));
+    savedValues.add(box.read("model"));
+    // savedValues.add("리휘");
+    savedValues.add(box.read("color"));
+    savedValues.add(box.read("year"));
+    savedValues.add(box.read("power"));
+    savedValues.add(box.read("연료효율"));
+    savedValues.add(box.read("mile"));
+    savedValues.add(box.read("fueltype"));
+    savedValues.add(box.read("transmission"));
+
+    print('값이 제대로 들어왔나? $savedValues');
+  }
 
   getJSONData() async {
+    data.clear();
     var url = Uri.parse(
         'http://localhost:8080/Chcar/JSP/selectCar.jsp?carSeq=$carSeq');
     var response = await http.get(url);
@@ -53,36 +77,7 @@ class SaleController extends GetxController {
       );
     }).toList();
     writeList.assignAll(writes);
-    imgList.add(
-      writes[0].img_01,
-    );
-    imgList.add(
-      writes[0].img_02,
-    );
-
-    // // Timer 설정
-    // _timer = Timer.periodic(const Duration(seconds: 3), (_) {
-    //   _currentIndex.value = (_currentIndex.value + 1) % writeList.length;
-    // });
   }
-
-  // void nextImage() {
-  //   _currentIndex.value = (_currentIndex.value + 1) % writeList.length;
-  // }
-
-  // void previousImage() {
-  //   _currentIndex.value = _currentIndex.value == 0
-  //       ? writeList.length - 1
-  //       : _currentIndex.value - 1;
-  // }
-
-  // @override
-  // void onClose() {
-  //   _timer.cancel();
-  //   super.onClose();
-  // }
-
-  RxInt get currentIndex => _currentIndex;
 
   void getImageFromDevice(ImageSource imageSource) async {
     final picker = ImagePicker();

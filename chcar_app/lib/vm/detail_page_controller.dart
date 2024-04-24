@@ -1,6 +1,5 @@
 // detail_controller.dart
 
-import 'dart:async';
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,7 +11,6 @@ import 'package:http/http.dart' as http;
 class DetailController extends GetxController {
   // RxList - GetX에서 제공해주는 반응형 리스트.(실시간 UI 업데이트 기능)
   final RxList<Write> writeList = <Write>[].obs;
-  late Timer _timer;
   String carSeq = '';
   RxInt _currentIndex = RxInt(0);
   Rx<XFile?> imageFile = Rx<XFile?>(null);
@@ -22,6 +20,7 @@ class DetailController extends GetxController {
   bool _isImagePickerActive = false;
 
   getJSONData() async {
+    data.clear();
     var url = Uri.parse(
         'http://localhost:8080/Chcar/JSP/selectCar.jsp?carSeq=$carSeq');
     var response = await http.get(url);
@@ -29,6 +28,7 @@ class DetailController extends GetxController {
     var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
     List result = dataConvertedJSON['results'];
     data.addAll(result);
+    print("데이터 뭐 가져오냐? $data");
     update();
   }
 
