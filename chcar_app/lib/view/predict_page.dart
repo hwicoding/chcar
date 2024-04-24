@@ -143,7 +143,7 @@ class _PredictPageState extends State<PredictPage> {
                                 child: Text(brand),
                               );
                             }).toList(),
-                            value: controller.carbrand,
+                            value: dropvalue1,
                             onChanged: (value) {
                               dropvalue1 = value!.toString();
                               dropdownBrandList.whatB = dropvalue1;
