@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:chcar_app/vm/sale_page_controller.dart';
 import 'package:flutter/material.dart'; // 플러터 UI 관련 라이브러리 임포트
 import 'package:get/get.dart'; // GetX 상태 관리 라이브러리 임포트
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart'; // 이미지 피커 라이브러리 임포트대 경로로 디테일 페이지 컨트롤러 임포트
 
 // ignore: use_key_in_widget_constructors
@@ -11,6 +12,7 @@ class SalePage extends StatelessWidget {
   final SaleController controller =
       Get.put(SaleController()); // 디테일 컨트롤러를 가져와서 사용
   final picker = ImagePicker(); // 이미지 피커 인스턴스 생성
+  final login = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +41,14 @@ class SalePage extends StatelessWidget {
                 // 빌더 함수
                 return SizedBox(
                   // 크기 조절 가능한 박스 위젯
-                  height: 7000, // 높이 설정
+                  height: 800, // 높이 설정
                   child: controller.savedValues.isEmpty // 데이터가 비어있으면
                       ? const CircularProgressIndicator() // 로딩 중 표시
                       : ListView.builder(
                           // 리스트 뷰 빌더로 아이템 표시
                           shrinkWrap: true,
-                          itemCount: controller.savedValues.length, // 아이템 개수 설정
+                          itemCount: 1, // 아이템 개수 설정
+                          // itemCount: controller.savedValues.length, // 아이템 개수 설정
                           itemBuilder: (context, index) {
                             return Padding(
                               // 위젯 간격을 주기 위해 패딩 추가
@@ -77,12 +80,12 @@ class SalePage extends StatelessWidget {
                                     Row(
                                       children: [
                                         buildTextFieldRow(
-                                            '판매자', controller.savedValues[2]),
+                                            '판매자', login.read("usernickname")),
                                         const SizedBox(
                                           width: 80,
                                         ),
                                         buildTextFieldRow('주행거리(km)',
-                                            controller.savedValues[7]),
+                                            controller.savedValues[6]),
                                         // buildTextFieldRow(
                                         //     '주행거리(km)',
                                         //     int.parse(carData[7])
@@ -100,12 +103,12 @@ class SalePage extends StatelessWidget {
                                     Row(
                                       children: [
                                         buildTextFieldRow(
-                                            '연도', controller.savedValues[4]),
+                                            '연도', controller.savedValues[3]),
                                         const SizedBox(
                                           width: 80,
                                         ),
                                         buildTextFieldRow(
-                                            '색상', controller.savedValues[3]),
+                                            '색상', controller.savedValues[2]),
                                         const SizedBox(
                                           width: 10,
                                         ),
@@ -122,12 +125,12 @@ class SalePage extends StatelessWidget {
                                     Row(
                                       children: [
                                         buildTextFieldRow(
-                                            '연료유형', controller.savedValues[8]),
+                                            '연료유형', controller.savedValues[7]),
                                         const SizedBox(
                                           width: 80,
                                         ),
                                         buildTextFieldRow(
-                                            '변속기유형', controller.savedValues[9]),
+                                            '변속기유형', controller.savedValues[8]),
                                       ],
                                     ),
                                     const SizedBox(
@@ -141,12 +144,12 @@ class SalePage extends StatelessWidget {
                                     Row(
                                       children: [
                                         buildTextFieldRow('차량연비(L/100km)',
-                                            controller.savedValues[6]),
+                                            controller.savedValues[5]),
                                         const SizedBox(
                                           width: 15,
                                         ),
                                         buildTextFieldRow('차량마력(kW)',
-                                            controller.savedValues[5]),
+                                            controller.savedValues[4]),
                                       ],
                                     ),
                                     const SizedBox(
@@ -198,19 +201,23 @@ class SalePage extends StatelessWidget {
                                     ),
                                     const Row(
                                       children: [
-                                        Text(
-                                          '사진 추가',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
+                                        Padding(
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 0, 0, 15),
+                                          child: Text(
+                                            '사진 추가',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                            ),
                                           ),
                                         ),
-                                        Text(
-                                          '(사진은 최대 3장 첨부 가능)',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                          ),
-                                        ),
+                                        // Text(
+                                        //   '(사진은 최대 3장 첨부 가능)',
+                                        //   style: TextStyle(
+                                        //     fontSize: 16,
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                     Container(
@@ -252,12 +259,16 @@ class SalePage extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(
                                           0, 0, 0, 15),
-                                      child: OutlinedButton(
-                                        onPressed: () {
-                                          controller.getImageFromDevice(
-                                              ImageSource.gallery);
-                                        },
-                                        child: const Text('사진 추가하기'),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 20, 0, 15),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            controller.getImageFromDevice(
+                                                ImageSource.gallery);
+                                          },
+                                          child: const Text('사진 추가하기'),
+                                        ),
                                       ),
                                     ),
                                     ElevatedButton(

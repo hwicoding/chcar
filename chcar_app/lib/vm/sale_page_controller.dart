@@ -25,10 +25,13 @@ class SaleController extends GetxController {
   void onInit() {
     super.onInit();
 
-    // 불러온 값들을 리스트에 추가
+    // 리스트 초기화
+    savedValues.clear();
+
+    // 값들을 리스트에 추가
     savedValues.add(box.read("brand"));
     savedValues.add(box.read("model"));
-    savedValues.add("리휘");
+    // savedValues.add("리휘");
     savedValues.add(box.read("color"));
     savedValues.add(box.read("year"));
     savedValues.add(box.read("power"));
@@ -36,6 +39,7 @@ class SaleController extends GetxController {
     savedValues.add(box.read("mile"));
     savedValues.add(box.read("fueltype"));
     savedValues.add(box.read("transmission"));
+
     print('값이 제대로 들어왔나? $savedValues');
   }
 
