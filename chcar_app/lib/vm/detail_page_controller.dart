@@ -18,9 +18,11 @@ class DetailController extends GetxController {
   List imgList = [];
   // 이미지 피커가 활성화되어 있는지 여부를 추적하는 상태 변수
   bool _isImagePickerActive = false;
+  bool loopState = false;
 
   getJSONData() async {
     data.clear();
+    loopState = false;
     var url = Uri.parse(
         'http://localhost:8080/Chcar/JSP/selectCar.jsp?carSeq=$carSeq');
     var response = await http.get(url);
@@ -29,6 +31,7 @@ class DetailController extends GetxController {
     List result = dataConvertedJSON['results'];
     data.addAll(result);
     print("데이터 뭐 가져오냐? $data");
+    loopState = true;
     update();
   }
 

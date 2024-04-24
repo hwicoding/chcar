@@ -69,6 +69,7 @@ class DetailPage extends StatelessWidget {
                                       controller.currentIndex.value = index;
                                     },
                                     allowImplicitScrolling: false,
+                                    loop: controller.loopState,
                                     pagination:
                                         SwiperPagination(), // 페이지 표시 도구를 활성화합니다(기본 동그라미).
                                     itemCount: controller.imgList

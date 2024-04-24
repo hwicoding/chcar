@@ -1,7 +1,8 @@
-import 'package:chcar_app/view/mypage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
+
+import 'userinfo_update.dart';
 
 class ChchrDrawer extends StatelessWidget {
   const ChchrDrawer({super.key});
@@ -28,9 +29,9 @@ class ChchrDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.person),
-            title: Text('Mypage'),
+            title: Text('내 정보 수정하기'),
             onTap: () {
-              Get.to(Mypage());
+              Get.to(Userinfoupdate());
             },
           ),
         ],
