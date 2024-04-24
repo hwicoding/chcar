@@ -57,7 +57,7 @@ class _PredictPageState extends State<PredictPage> {
     yearEditingController = TextEditingController();
     trantype = ["0", "1"];
     fueltype = ["0", "1"];
-    dropvalue1 = '';
+    dropvalue1 = 'Audi';
     dropvalue2 = 'Audi_A3';
     initcol = 'black';
     _selectedOption1 = trantype[0];
