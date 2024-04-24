@@ -57,7 +57,7 @@ class _PredictPageState extends State<PredictPage> {
     yearEditingController = TextEditingController();
     trantype = ["0", "1"];
     fueltype = ["0", "1"];
-    dropvalue1 = 'Audi';
+    dropvalue1 = '';
     dropvalue2 = 'Audi_A3';
     initcol = 'black';
     _selectedOption1 = trantype[0];
@@ -143,10 +143,8 @@ class _PredictPageState extends State<PredictPage> {
                                 child: Text(brand),
                               );
                             }).toList(),
-                            value: dropvalue1,
+                            value: controller.carbrand,
                             onChanged: (value) {
-                              
-                                //dropvalue1 ='';
                               dropvalue1 = value!.toString();
                               dropdownBrandList.whatB = dropvalue1;
                               goconnected2();
@@ -464,9 +462,9 @@ class _PredictPageState extends State<PredictPage> {
                                 box.write("transmission", "auto");
                                 }
                                 if(_selectedOption2 == "1") {
-                                  box.write("gasoline", _selectedOption2);
+                                box.write("fueltype", "gasoline");
                                 }else {
-                                  box.write("diesel", _selectedOption2);
+                                box.write("fueltype", "diesel");
                                 }
                                 box.write("year", yearEditingController.text);
                                 box.write("power", pstextEditingController.text);
