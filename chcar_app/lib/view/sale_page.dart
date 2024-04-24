@@ -1,11 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../vm/detail_page_controller.dart';
-import 'predict_page.dart';
 
 // ignore: use_key_in_widget_constructors
 class SalePage extends StatelessWidget {
@@ -37,7 +34,7 @@ class SalePage extends StatelessWidget {
               builder: (controller) {
                 // 빌더 함수
                 return SizedBox(
-                  height: 680,
+                  height: 7000,
                   child: controller.data.isEmpty // 조건부 빌더
                       ? const CircularProgressIndicator() // 조건이 참일 때: 로딩 중 표시
                       : ListView.builder(
@@ -306,22 +303,6 @@ class SalePage extends StatelessWidget {
               title: Text('공지사항'), // 텍스트 설정
             ),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        // 플로팅 액션 버튼
-        backgroundColor: Color.fromARGB(255, 79, 139, 116), // 배경색 설정
-        onPressed: () {
-          // 클릭 이벤트 핸들러
-          Get.to(const PredictPage()); // 예측 페이지로 이동
-        },
-        child: Center(
-          // 중앙 정렬
-          child: Icon(
-            // 아이콘
-            Icons.add, // 추가 아이콘
-            color: Colors.white, // 아이콘 색상 설정
-          ),
         ),
       ),
     );

@@ -1,7 +1,10 @@
 import 'package:chcar_app/model/collect.dart';
+import 'package:chcar_app/view/detail_page.dart';
+import 'package:chcar_app/vm/detail_page_controller.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CardListPage extends StatelessWidget {
   const CardListPage({Key? key});
@@ -39,7 +42,15 @@ class CardListPage extends StatelessWidget {
     );
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        final DetailController detailController = Get.put(DetailController());
+        detailController.carSeq = writeCard.seq.toString();
+        detailController.fetchWrites(writeCard.seq.toString());
+        detailController.getJSONData();
+        print('여기는 카드 리스트 ${writeCard.seq}');
+
+        Get.to(DetailPage());
+      },
       child: Card(
           child: Row(
         children: [

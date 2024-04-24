@@ -3,7 +3,6 @@ import 'package:chcar_app/view/sale_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../vm/detail_page_controller.dart';
-import 'predict_page.dart';
 
 // ignore: use_key_in_widget_constructors
 class DetailPage extends StatelessWidget {
@@ -48,35 +47,6 @@ class DetailPage extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                // GetX controller에서 이전버튼 실행
-                                // IconButton(
-                                //   onPressed: () {
-                                //     controller.previousImage();
-                                //   },
-                                //   icon: const Icon(Icons.arrow_back_ios),
-                                // ),
-                                // DetailPageImageSlider(
-                                //   // 이미지 리스트 설정
-                                //   images: controller.writeList
-                                //       // Write 리스트에 이미지를 매핑.
-                                //       .map((write) => write.img_01)
-                                //       // 매핑된 것을 리스트로 변환
-                                //       .toList(),
-                                //   // 현재 이미지 Index
-                                //   currentIndex: controller.currentIndex.value,
-                                //   // 다음 이미지 함수 호출
-                                //   onNext: () => controller.nextImage(),
-                                //   // 이전 이미지 함수 호출
-                                //   onPrevious: () => controller.previousImage(),
-                                // ),
-                                // // GetX controller에서 다음버튼 실행
-                                // IconButton(
-                                //   onPressed: () {
-                                //     controller.nextImage();
-                                //   },
-                                //   icon: const Icon(Icons.arrow_forward_ios),
-                                // ),
-
                                 Container(
                                   color: Colors.amber,
                                   width:
@@ -84,10 +54,15 @@ class DetailPage extends StatelessWidget {
                                   height:
                                       MediaQuery.of(context).size.width * 0.7,
                                   child: Swiper(
+                                    index: 0,
+                                    controller: SwiperController(),
                                     autoplay: true,
                                     autoplayDelay: 1000,
                                     control: SwiperControl(),
-                                    allowImplicitScrolling: true,
+                                    onIndexChanged: (index) {
+                                      controller.currentIndex.value = index;
+                                    },
+                                    allowImplicitScrolling: false,
                                     pagination: SwiperPagination(),
                                     itemCount: controller.imgList
                                         .length, // writeList의 이미지 갯수로 itemCount 설정
@@ -193,56 +168,6 @@ class DetailPage extends StatelessWidget {
                 },
               ),
             ],
-          ),
-        ),
-      ),
-      drawer: Drawer(
-        // 드로어
-        child: ListView(
-          // 리스트 뷰
-          children: const [
-            // 자식 위젯 리스트
-            ListTile(
-              // 리스트 타일
-              leading: Icon(Icons.home), // 아이콘 설정
-              title: Text('Home'), // 텍스트 설정
-            ),
-            ListTile(
-              // 리스트 타일
-              leading: Icon(Icons.home), // 아이콘 설정
-              title: Text('내 차 시세 예측'), // 텍스트 설정
-            ),
-            ListTile(
-              // 리스트 타일
-              leading: Icon(Icons.home), // 아이콘 설정
-              title: Text('예측 기록 보기'), // 텍스트 설정
-            ),
-            ListTile(
-              // 리스트 타일
-              leading: Icon(Icons.home), // 아이콘 설정
-              title: Text('내 차 판매 글'), // 텍스트 설정
-            ),
-            ListTile(
-              // 리스트 타일
-              leading: Icon(Icons.home), // 아이콘 설정
-              title: Text('공지사항'), // 텍스트 설정
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        // 플로팅 액션 버튼
-        backgroundColor: Color.fromARGB(255, 79, 139, 116), // 배경색 설정
-        onPressed: () {
-          // 클릭 이벤트 핸들러
-          Get.to(const PredictPage()); // 예측 페이지로 이동
-        },
-        child: Center(
-          // 중앙 정렬
-          child: Icon(
-            // 아이콘
-            Icons.add, // 추가 아이콘
-            color: Colors.white, // 아이콘 색상 설정
           ),
         ),
       ),

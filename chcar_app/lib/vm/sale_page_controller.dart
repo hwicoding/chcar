@@ -9,10 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import '../model/write.dart';
 import 'package:http/http.dart' as http;
 
-class DetailController extends GetxController {
+class SaleController extends GetxController {
   // RxList - GetX에서 제공해주는 반응형 리스트.(실시간 UI 업데이트 기능)
   final RxList<Write> writeList = <Write>[].obs;
-  late Timer _timer;
   String carSeq = '';
   RxInt _currentIndex = RxInt(0);
   Rx<XFile?> imageFile = Rx<XFile?>(null);
