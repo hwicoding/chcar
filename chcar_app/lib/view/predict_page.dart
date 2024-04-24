@@ -243,7 +243,7 @@ class _PredictPageState extends State<PredictPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('오토'),
+                            const Text('auto'),
                             SizedBox(
                               width: 60,
                               child: Radio(
@@ -255,7 +255,7 @@ class _PredictPageState extends State<PredictPage> {
                                 },
                               ),
                             ),
-                            const Text('메뉴얼'),
+                            const Text('manual'),
                             SizedBox(
                               width: 50,
                               child: Radio(
@@ -290,7 +290,7 @@ class _PredictPageState extends State<PredictPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('디젤'),
+                            const Text('diesel'),
                             SizedBox(
                               width: 60,
                               child: Radio(
@@ -302,7 +302,7 @@ class _PredictPageState extends State<PredictPage> {
                                 },
                               ),
                             ),
-                            const Text('가솔린'),
+                            const Text('gasoline'),
                             SizedBox(
                               width: 50,
                               child: Radio(
@@ -458,8 +458,16 @@ class _PredictPageState extends State<PredictPage> {
                                 box.write("brand", dropvalue1);
                                 box.write("model", dropvalue2);
                                 box.write("color", initcol);
-                                box.write("transmission", _selectedOption1);
-                                box.write("fuel", _selectedOption2);
+                                if(_selectedOption1 == "1") {
+                                box.write("transmission", "manual");
+                                }else {
+                                box.write("transmission", "auto");
+                                }
+                                if(_selectedOption2 == "1") {
+                                  box.write("gasoline", _selectedOption2);
+                                }else {
+                                  box.write("diesel", _selectedOption2);
+                                }
                                 box.write("year", yearEditingController.text);
                                 box.write("power", pstextEditingController.text);
                                 box.write("연료효율", fueltextEditingController.text);
