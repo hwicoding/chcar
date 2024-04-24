@@ -1,16 +1,20 @@
 import 'package:chcar_app/view/sale_page.dart';
+import 'package:chcar_app/vm/predict_insert.dart';
+
 import 'package:chcar_app/vm/predict_result.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ResultPage extends StatelessWidget {
-  ResultPage({super.key});
+  const ResultPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final ShowResult controller = Get.put(ShowResult());
-    controller.navigater();
-    
+    final Predictinset controller2 = Get.put(Predictinset());
+
+    final box = GetStorage();
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -30,10 +34,14 @@ class ResultPage extends StatelessWidget {
                     ? const CircularProgressIndicator()
                     : Column(
                         children: [
-
-                          
-
-
+                                SizedBox(
+                                    height: 150,
+                                  child: Text("차량 : ${box.read('model')}",style: const TextStyle(
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 79, 139, 116)
+                                  ),),
+                                ),
                           const Text(
                             '고객님의 차량 예측 판매가격은',
                             style: TextStyle(
@@ -43,9 +51,7 @@ class ResultPage extends StatelessWidget {
                           ),
                           SizedBox(
                             width: 290,
-                            child: Row(
-                              children: [
-
+                            child: Row(children: [
                               Text(
                                 '${(controller.resultvalue - controller.errorvalue).toInt()} ~ ${(controller.resultvalue + controller.errorvalue).toInt()}',
                                 style: const TextStyle(
@@ -76,12 +82,15 @@ class ResultPage extends StatelessWidget {
                                   padding: const EdgeInsets.all(20.0),
                                   child: ElevatedButton(
                                     onPressed: () {
+                                controller2.model = box.read("model");
+                                controller2.error = (controller.errorvalue).toString();
+                                controller2.price = (controller.resultvalue).toString();
+                                controller2.getbrand();
                                       Get.to(SalePage());
-                                    
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            const Color.fromARGB(255, 79, 139, 116),
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 79, 139, 116),
                                         foregroundColor: Colors.white,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
@@ -93,13 +102,17 @@ class ResultPage extends StatelessWidget {
                                   padding: const EdgeInsets.all(20.0),
                                   child: ElevatedButton(
                                     onPressed: () {
+                                controller2.model = box.read("model");
+                                controller2.error = (controller.errorvalue).toString();
+                                controller2.price = (controller.resultvalue).toString();
+                                controller2.getbrand();
                                       Get.back();
                                       Get.back();
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.white,
-                                        foregroundColor:
-                                            const Color.fromARGB(255, 79, 139, 116),
+                                        foregroundColor: const Color.fromARGB(
+                                            255, 79, 139, 116),
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10))),

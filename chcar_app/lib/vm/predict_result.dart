@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class ShowResult extends GetxController {
   List data = [];
-    
+
   String whatmodel = '';
   String whatyear = '';
   String whatpower = '';
@@ -38,14 +38,6 @@ class ShowResult extends GetxController {
   }
 
   gopredict() async {
-    print("가져온 모델 $whatmodel");
-    print("가져온 년도 $whatyear");
-    print(whatpower);
-    print(whattrans);
-    print(whatfuel);
-    print(whatcons);
-    print(whatmile);
-    print(colorpoint);
     colordiv();
     var url = Uri.parse(
         'http://localhost:8080/Chcar/Rserve/$whatmodel.jsp?'
