@@ -11,10 +11,16 @@ class ChchrDrawer extends StatelessWidget {
     final login = GetStorage();
     return Drawer(
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('${login.read('usernickname')}님 안녕하세요'),
+            accountName: Text('${login.read('usernickname')}님 안녕하세요 :)'),
             accountEmail: Text(''),
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 79, 139, 116),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20))),
           ),
           ListTile(
             leading: Icon(Icons.home),
@@ -26,22 +32,6 @@ class ChchrDrawer extends StatelessWidget {
             onTap: () {
               Get.to(Mypage());
             },
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('내 차 시세 예측'),
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('예측 기록 보기'),
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('내 차 판매 글'),
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('공지사항'),
           ),
         ],
       ),

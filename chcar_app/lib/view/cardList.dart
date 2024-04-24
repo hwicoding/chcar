@@ -51,32 +51,62 @@ class CardListPage extends StatelessWidget {
 
         Get.to(DetailPage());
       },
-      child: Card(
-          child: Row(
-        children: [
-          Image.network(
-            writeCard.imagepath,
-            width: 200,
-          ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  Text('${writeCard.carbrand}'),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text('${writeCard.carmodel}')
-                ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: 200,
+          child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                side: BorderSide(
+                    color: Color.fromARGB(255, 79, 139, 116), width: 3),
               ),
-              Text('생산년도 : ${writeCard.year}'),
-              Text('주행거리 : ${writeCard.km}km'),
-              Text('판매 가격 : ${writeCard.sellprice}'),
-              Text('판매자 : ${writeCard.nickname}'),
-            ],
-          )
-        ],
-      )),
+              color: Colors.white,
+              shadowColor: Colors.white,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.network(
+                      writeCard.imagepath,
+                      width: 200,
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${writeCard.carbrand}',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text('${writeCard.carmodel}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20)),
+                      Text('생산년도 : ${writeCard.year}', style: TextStyle()),
+                      Text('주행거리 : ${writeCard.km}km', style: TextStyle()),
+                      Row(
+                        children: [
+                          Text('판매 가격 : ', style: TextStyle()),
+                          Text('${writeCard.sellprice} ',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 255, 204, 0),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15)),
+                          Text('€', style: TextStyle())
+                        ],
+                      ),
+                      Text('판매자 : ${writeCard.nickname}', style: TextStyle()),
+                    ],
+                  )
+                ],
+              )),
+        ),
+      ),
     );
   }
 }
