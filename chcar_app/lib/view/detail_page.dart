@@ -1,5 +1,4 @@
 import 'package:card_swiper/card_swiper.dart';
-import 'package:chcar_app/view/sale_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../vm/detail_page_controller.dart';
@@ -69,8 +68,8 @@ class DetailPage extends StatelessWidget {
                                     itemBuilder: (context, index) {
                                       String imageUrl =
                                           controller.imgList[index];
-                                      print(
-                                          '이건 이미지 주소${imageUrl}'); // 이미지 URL 가져오기
+                                      // print(
+                                      //     '이건 이미지 주소${imageUrl}'); // 이미지 URL 가져오기
                                       return Column(
                                         children: [
                                           SizedBox(
@@ -109,56 +108,85 @@ class DetailPage extends StatelessWidget {
                                 // 아이템 빌더
                                 var colorData =
                                     controller.data[index]; // 현재 인덱스의 데이터
-                                return SizedBox(
-                                  child: Column(
-                                    // 컬럼 위젯
-                                    children: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Get.to(SalePage());
-                                        },
-                                        child: const Text(
-                                          '판매 페이지를 위한 숨구멍',
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(30, 30, 0, 0),
+                                  child: SizedBox(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // 자식 위젯 리스트
+                                        Row(
+                                          // mainAxisAlignment:
+                                          //     MainAxisAlignment.center,
+                                          children: [
+                                            buildTextFieldRow(
+                                                '브랜드', colorData['brand']),
+                                            buildTextFieldRow(
+                                                '모델', colorData['model']),
+                                          ],
                                         ),
-                                      ),
-                                      // 자식 위젯 리스트
-                                      Row(
-                                        // mainAxisAlignment:
-                                        //     MainAxisAlignment.center,
-                                        children: [
-                                          buildTextFieldRow(
-                                              '브랜드', colorData['brand']),
-                                          buildTextFieldRow(
-                                              '모델', colorData['model']),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          buildTextFieldRow(
-                                              '연도', colorData['year']),
-                                          buildTextFieldRow(
-                                              '색상', colorData['color']),
-                                          buildTextFieldRow(
-                                              '주행거리', colorData['km']),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          buildTextFieldRow(
-                                              '연료유형', colorData['fuel']),
-                                          buildTextFieldRow('변속기유형',
-                                              colorData['transmission']),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          buildTextFieldRow(
-                                              '차량연비', colorData['efficiency']),
-                                          buildTextFieldRow(
-                                              '차량마력', colorData['power_ps']),
-                                        ],
-                                      ),
-                                    ],
+                                        const SizedBox(
+                                          width: 500,
+                                          child: Divider(
+                                            height: 5,
+                                            // indent: 40,
+                                            endIndent: 40,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            buildTextFieldRow(
+                                                '연도', colorData['year']),
+                                            buildTextFieldRow(
+                                                '색상', colorData['color']),
+                                            buildTextFieldRow(
+                                                '주행거리', colorData['km']),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: 500,
+                                          child: Divider(
+                                            height: 5,
+                                            // indent: 40,
+                                            endIndent: 40,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            buildTextFieldRow(
+                                                '연료유형', colorData['fuel']),
+                                            buildTextFieldRow('변속기유형',
+                                                colorData['transmission']),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: 500,
+                                          child: Divider(
+                                            height: 5,
+                                            // indent: 40,
+                                            endIndent: 40,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            buildTextFieldRow('차량연비',
+                                                colorData['efficiency']),
+                                            buildTextFieldRow(
+                                                '차량마력', colorData['power_ps']),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: 500,
+                                          child: Divider(
+                                            height: 5,
+                                            // indent: 40,
+                                            endIndent: 40,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
@@ -175,45 +203,43 @@ class DetailPage extends StatelessWidget {
   }
 
   Widget buildTextFieldRow(String labelText, String initialValue) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              '$labelText ',
-              textAlign: TextAlign.left,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                // 라벨 텍스트
+                '$labelText ',
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
-            ),
-            // SizedBox(
-            //   width: 75,
-            // ),
-          ],
-        ),
-        SizedBox(
-          height: 100,
-          width: 140,
-          child: TextField(
-            controller: TextEditingController(
-              text: initialValue,
-            ), // 초기값 설정
-            onChanged: (value) {
-              // 값이 변경되었을 때
-              // 여기에 변경된 값 처리 로직을 추가할 수 있습니다.
-            },
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                contentPadding: EdgeInsets.all(1.0)),
-
-            readOnly: true,
+              // SizedBox(
+              //   width: 75,
+              // ),
+            ],
           ),
-        ),
-      ],
+          SizedBox(
+            // 크기 조절 가능한 박스 위젯
+            height: 40,
+            width: 100,
+            child: TextField(
+              // 텍스트 필드 위젯
+              controller: TextEditingController(text: initialValue), // 초기값 설정
+              onChanged: (value) {}, // 값 변경 이벤트 처리
+              decoration: const InputDecoration(
+                  // 입력 필드 스타일 설정
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.fromLTRB(0, -20, 0, 0)),
+              textAlignVertical: TextAlignVertical.top,
+              style: const TextStyle(fontSize: 16),
+              readOnly: true, // 읽기 전용 설정
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
