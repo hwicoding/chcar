@@ -1,6 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import '../vm/detail_page_controller.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -9,6 +10,7 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // DetailController Instance 생성 및 GetX에 등록
     final DetailController controller = Get.put(DetailController());
+    final login = GetStorage();
 
     return Scaffold(
       // AppBar
@@ -31,52 +33,57 @@ class DetailPage extends StatelessWidget {
             children: [
               // GetX - 상태 관리를 위한 위젯
               Obx(
+                // Obx 위젯: Rx 상태를 구독하고 그 상태가 변경될 때마다 자동으로 UI를 업데이트합니다.
                 // wirteList 비어있다? 아니다?
-                () => controller.writeList.isEmpty
+                () => controller.writeList.isEmpty // writeList가 비어있는지 확인합니다.
                     // 비어있으면 로딩 중 표시
-                    ? const CircularProgressIndicator()
+                    ? const CircularProgressIndicator() // writeList가 비어있다면 로딩 중을 나타내는 CircularProgressIndicator를 표시합니다.
                     // 아니면 이미지 슬라이더 및 화살표 버튼 표시
                     : Column(
+                        // writeList에 항목이 있는 경우 Column을 반환합니다.
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // 슬라이더 페이지 실행
                           Padding(
                             // fromLTRB(left, top, right, bottom)
-                            padding: const EdgeInsets.fromLTRB(10, 50, 10, 50),
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  color: Colors.amber,
+                                  color: Colors.white,
                                   width:
                                       MediaQuery.of(context).size.width * 0.9,
                                   height:
                                       MediaQuery.of(context).size.width * 0.7,
                                   child: Swiper(
-                                    index: 0,
-                                    controller: SwiperController(),
-                                    autoplay: true,
-                                    autoplayDelay: 1000,
-                                    control: SwiperControl(),
+                                    index: 0, // Swiper의 초기 인덱스를 설정합니다.
+                                    controller:
+                                        SwiperController(), // Swiper를 제어하는 데 사용되는 컨트롤러를 설정합니다.
+                                    autoplay: true, // 자동으로 이미지를 전환할지 여부를 나타냅니다.
+                                    autoplayDelay:
+                                        1000, // 이미지 전환 간격을 밀리초 단위로 설정합니다.
+                                    control:
+                                        SwiperControl(), // 이전 및 다음 이미지로 이동하는 화살표 버튼을 표시합니다.
                                     onIndexChanged: (index) {
                                       controller.currentIndex.value = index;
                                     },
                                     allowImplicitScrolling: false,
-                                    pagination: SwiperPagination(),
+                                    pagination:
+                                        SwiperPagination(), // 페이지 표시 도구를 활성화합니다(기본 동그라미).
                                     itemCount: controller.imgList
-                                        .length, // writeList의 이미지 갯수로 itemCount 설정
+                                        .length, // Swiper에 표시할 항목 수를 설정합니다.
                                     itemBuilder: (context, index) {
-                                      String imageUrl =
-                                          controller.imgList[index];
-                                      // print(
-                                      //     '이건 이미지 주소${imageUrl}'); // 이미지 URL 가져오기
+                                      String imageUrl = controller
+                                          .imgList[index]; // 이미지 URL을 가져옵니다.
+                                      // print('이건 이미지 주소${imageUrl}'); // 이미지 URL을 출력합니다.
                                       return Column(
                                         children: [
                                           SizedBox(
                                             width: 300,
                                             height: 300,
                                             child: Image.network(
-                                                imageUrl), // 이미지 불러오기
+                                                imageUrl), // 네트워크에서 이미지를 로드합니다.
                                           )
                                         ],
                                       );
@@ -137,12 +144,26 @@ class DetailPage extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
+                                            buildTextFieldRow('판매자',
+                                                login.read("usernickname")),
+                                            buildTextFieldRow(
+                                                '색상', colorData['color']),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: 500,
+                                          child: Divider(
+                                            height: 5,
+                                            // indent: 40,
+                                            endIndent: 40,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
                                             buildTextFieldRow(
                                                 '연도', colorData['year']),
                                             buildTextFieldRow(
-                                                '색상', colorData['color']),
-                                            buildTextFieldRow(
-                                                '주행거리', colorData['km']),
+                                                '주행거리(km)', colorData['km']),
                                           ],
                                         ),
                                         const SizedBox(
@@ -185,6 +206,42 @@ class DetailPage extends StatelessWidget {
                                             endIndent: 40,
                                           ),
                                         ),
+
+                                        // const Padding(
+                                        //   padding:
+                                        //       EdgeInsets.fromLTRB(0, 20, 0, 20),
+                                        //   child: Text(
+                                        //     '차량 설명',
+                                        //     textAlign: TextAlign.left,
+                                        //     style: TextStyle(
+                                        //       fontWeight: FontWeight.bold,
+                                        //       fontSize: 20,
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        // SizedBox(
+                                        //   height: 220,
+                                        //   width: 360,
+                                        //   child: TextField(
+                                        //     controller:
+                                        //         controller.write['va'], // 초기값 설정
+                                        //     onChanged: (value) {
+
+                                        //       print('value 값이 뭐야? $value');
+                                        //     },
+                                        //     decoration: InputDecoration(
+                                        //       border: OutlineInputBorder(
+                                        //         borderRadius:
+                                        //             BorderRadius.circular(5),
+                                        //       ),
+                                        //       // contentPadding: EdgeInsets.symmetric(
+                                        //       //     vertical: 20.0),
+                                        //     ),
+                                        //     keyboardType: TextInputType
+                                        //         .multiline, // 여러 줄 입력을 허용
+                                        //     maxLines: 20,
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),
