@@ -85,7 +85,7 @@ class SalePage extends StatelessWidget {
                                           width: 80,
                                         ),
                                         buildTextFieldRow('주행거리(km)',
-                                            controller.savedValues[7]),
+                                            controller.savedValues[6]),
                                         // buildTextFieldRow(
                                         //     '주행거리(km)',
                                         //     int.parse(carData[7])
@@ -103,12 +103,12 @@ class SalePage extends StatelessWidget {
                                     Row(
                                       children: [
                                         buildTextFieldRow(
-                                            '연도', controller.savedValues[4]),
+                                            '연도', controller.savedValues[3]),
                                         const SizedBox(
                                           width: 80,
                                         ),
                                         buildTextFieldRow(
-                                            '색상', controller.savedValues[3]),
+                                            '색상', controller.savedValues[2]),
                                         const SizedBox(
                                           width: 10,
                                         ),
@@ -125,12 +125,12 @@ class SalePage extends StatelessWidget {
                                     Row(
                                       children: [
                                         buildTextFieldRow(
-                                            '연료유형', controller.savedValues[8]),
+                                            '연료유형', controller.savedValues[7]),
                                         const SizedBox(
                                           width: 80,
                                         ),
                                         buildTextFieldRow(
-                                            '변속기유형', controller.savedValues[9]),
+                                            '변속기유형', controller.savedValues[8]),
                                       ],
                                     ),
                                     const SizedBox(
@@ -144,12 +144,12 @@ class SalePage extends StatelessWidget {
                                     Row(
                                       children: [
                                         buildTextFieldRow('차량연비(L/100km)',
-                                            controller.savedValues[6]),
+                                            controller.savedValues[5]),
                                         const SizedBox(
                                           width: 15,
                                         ),
                                         buildTextFieldRow('차량마력(kW)',
-                                            controller.savedValues[5]),
+                                            controller.savedValues[4]),
                                       ],
                                     ),
                                     const SizedBox(
