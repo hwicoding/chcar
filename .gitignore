@@ -260,3 +260,10 @@ Temporary Items
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/dart,flutter,android,macos,visualstudiocode,eclipse,firebase
+chcar_app/linux/flutter/ephemeral/.plugin_symlinks
+chcar_app/windows/flutter/ephemeral/.plugin_symlinks
+chcar_app/windows
+chcar_app/macos/Pods
+chcar_app/macos
+chcar_app/ios
+chcar_app/devtools_options.yaml
